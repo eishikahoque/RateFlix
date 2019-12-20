@@ -1,7 +1,7 @@
 <?php ?>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/rateflix/includes/CSS/footer.css">
+	<link rel="stylesheet" type="text/css" href="/RateFlix/includes/CSS/footer.css">
 	<link href="https://fonts.googleapis.com/css?family=Anton|Quicksand|Roboto&display=swap" rel="stylesheet">
 </head>
 <footer class="footer-container">

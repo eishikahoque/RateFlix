@@ -65,24 +65,14 @@ h1 {
 }
 
 .pass-row {
-  width: 100%;
+  width: 95%;
+  padding-left: 5px;
   display: flex;
   justify-content: center;
 }
 
-/* .input-wrapper {
-  display:inline-block;
-  position: relative
-} */
-.password-wrapper:after {
-  font-family: 'FontAwesome';
-  content: '\f274';
-  position: absolute;
-  right: 6px;
-  color: black;
-}
 
-#pass-status {
+#passwordIcon {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,7 +92,7 @@ h1 {
   padding-left: 4px;
 }
 
-.sub-reminder{
+.sub-reminder {
   text-decoration: none;
   font-family: 'Quicksand', sans-serif;
   font-weight: 300;
