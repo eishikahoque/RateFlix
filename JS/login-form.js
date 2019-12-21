@@ -32,11 +32,21 @@ function submitForm() {
 
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
-        console.log(xhr.responseText)
+        console.log(xhr.responseText);
         var responseJSON = JSON.parse(xhr.responseText);
-        if (responseJSON["success"] == "true") {
+        if (responseJSON["success"] === "true") {
             window.location.href = "/RateFlix/home.php";
-        } 
+        } else if (responseJSON["success"] === "false") {
+          var message = 'Sorry, we do NOT have a match in our system!';
+          var signupErrorContainer = document.querySelector('#signupError') || document.createElement('P');
+
+          signupErrorContainer.innerHTML = `<i class="fas fa-exclamation-circle"></i><span class="error-message">${message}</span>`;
+          signupErrorContainer.setAttribute('class', 'signup-error-container');
+          signupErrorContainer.setAttribute('id', 'signupError');
+
+          var signupContainer = document.getElementById('loginForm');
+          signupContainer.parentNode.insertBefore(signupErrorContainer, signupContainer.nextSibling);
+        }
       }
     };
 
