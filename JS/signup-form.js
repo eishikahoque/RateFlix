@@ -106,7 +106,7 @@ function validatePassword(id) {
     message = 'Please enter your password';
   } else if (password.value.length < 8) {
     message = 'Your password must be at least 8 characters';
-  } else if (id === 'repassword' && password !== document.getElementById('passwordField')) {
+  } else if (id === 'repassword' && password.value !== document.getElementById('passwordField').value) {
     message = 'Your passwords must match';
   }
 

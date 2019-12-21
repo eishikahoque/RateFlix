@@ -8,10 +8,10 @@ $email = $_POST['email'];
 $password= $_POST['password'];
 
 $stmt = $pdo->prepare("
-  INSERT INTO `user`
-  (`userID`, `firstName`, `lastName`, `email`, `password`) 
-  VALUES
-  (NULL, '$fname', '$lname', '$email', '$password')
+    INSERT INTO `user`
+    (`userID`, `firstName`, `lastName`, `email`, `password`)
+    VALUES
+    (NULL,'$fname','$lname','$email','$password')
   ");
 
 $stmt->execute();
