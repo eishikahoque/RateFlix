@@ -32,7 +32,7 @@ h1 {
 
 .form label{
   display: block;
-  margin-top: 16px;
+  margin-top: 10px;
   margin-bottom: 0px;
   font-size: 1.5rem;
   font-family: 'Roboto Condensed', sans-serif;
@@ -59,8 +59,6 @@ h1 {
 }
 
 .signup-form{
-  /*max-width: 500px;*/
-  padding: 20px;
   margin: 8px;
 }
 
@@ -68,15 +66,10 @@ h1 {
   width: 95%;
   display: flex;
   justify-content: center;
+  padding-left: 10px;
 }
 
-#pass-status {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 8px;
-}
-#repass-status{
+#passwordStatus, #repasswordStatus {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,11 +77,8 @@ h1 {
 }
 
 .error-container {
-  font-size: 1rem;
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 300;
   width: 50%;
-  margin-top: 4px;
+  margin: 4px 0 0 0;
   color: #E60913;
 }
 

@@ -3,13 +3,12 @@ body{
 }
 
 .footer-container {
-/*	display: grid;
-    grid-template-columns: 1fr 1fr 1fr;*/
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 16px 0;
 	position: absolute;
 	bottom: 0px;
-	left: 0px;
 	width: 100%;
-    /*padding: 8px 0;*/
 	background-color: #141414;
 	text-align: center;
 }
