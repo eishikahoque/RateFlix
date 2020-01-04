@@ -6,7 +6,7 @@
 	<meta name="description" content="rating movies and tvshows" />
 	<meta name="keywords" content="rate, movies, tvshows, lists, share, netflix" />
 
-	<link rel="stylesheet" type="text/css" href="/RateFlix/includes/CSS/header.css">
+	<link rel="stylesheet" type="text/css" href="/RateFlix/CSS/home.css">
 	<link href="https://fonts.googleapis.com/css?family=Quicksand:300|Roboto+Condensed:400,700|Yanone+Kaffeesatz:400,700&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/61799bdb29.js" crossorigin="anonymous"></script>
 	<link rel="icon" type="image/png" sizes="32x32" href="/RateFlix/favicomatic/favicon-32x32.png">
@@ -35,15 +35,38 @@ include("includes/db-config.php");
 		<section>
 			<h2>Tv Show Dramas</h2>
 			<?php 
-			$stmt = $pdo->prepare("SELECT * FROM `tvshows` INNER JOIN `tvshows-genres` ON `tvshows`.`tvshowID` = `tvshows-genre`.`tvshowID`WHERE `tvshows-genre`.`genreID` ='9'");
+			$stmt = $pdo->prepare("SELECT * FROM `tvshows` WHERE `genre` = 'drama'");
 			
 			$stmt->execute();
 
-				while ($row = $stmt->fetch()){
-					echo($row["images"]);
-				}
-
 			?>
+
+			<div class="row">
+    			<div class="row__inner">
+
+    			<?php
+
+				while ($row = $stmt->fetch()){ ?>
+
+					<div class="tile">
+				        <div class="tile__media">
+				          <img class="tile__img" src=" <?php echo($row["images"]); ?>" alt="" src="show-detail.php?showID=<?php echo($row['showID']) ?>" />
+				        </div>
+				        <div class="tile__details">
+				          <div class="tile__title">
+				            <?php echo($row["name"]); ?>
+				          </div>
+				        </div>
+				      </div>
+
+
+				<?php } ?>
+
+    					</div>
+
+    				</div>
+
+		
 		</section>
 		<section>
 			<h2>Netflix Tv Shows Original</h2>
@@ -53,7 +76,7 @@ include("includes/db-config.php");
 				$stmt->execute();
 
 				while ($row = $stmt->fetch()){
-					echo($row["image"]);
+					echo($row["images"]);
 				}
 			?>
 		</section>
