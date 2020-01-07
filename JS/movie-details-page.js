@@ -31,7 +31,7 @@ function submitRating() {
   var rating = document.forms[1]['myrating'].value;
   if (rating) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'process-rating.php', true);
+    xhr.open('POST', 'process-movie-rating.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     xhr.send(`rating=${rating}&movieID=${document.forms[1]['movieID'].value}&userID=${document.forms[1]['userID'].value}`);
@@ -63,13 +63,13 @@ function submitReview() {
   var review = reviewSection.value;
   if (review) {
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'process-review.php', true);
+    xhr.open('POST', 'process-movie-review.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
     xhr.send(`review=${review}&movieID=${document.forms[1]['movieID'].value}&userID=${document.forms[1]['userID'].value}`);
 
     xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {x
+      if (xhr.readyState === 4) {
         console.log(xhr.responseText);
         var responseJSON = JSON.parse(xhr.responseText);
         if (responseJSON["success"] === "true") {

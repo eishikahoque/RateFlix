@@ -3,11 +3,11 @@ include("includes/db-config.php");
 
 $rating = $_POST['rating'];
 $userID = $_POST['userID'];
-$tvshowID = $_POST['tvshowID'];
+$movieID = $_POST['movieID'];
 
 $stmt1 = $pdo->prepare("
-  SELECT COUNT(*) as rating_count FROM `tvshows-rating`
-  WHERE `tvshowID` = '$tvshowID'
+  SELECT COUNT(*) as rating_count FROM `movies-rating`
+  WHERE `movieID` = '$movieID'
   AND `userID` = '$userID'
   ");
 
@@ -17,14 +17,14 @@ $row1 = $stmt1->fetch();
 
 if ($row1['rating_count'] > 0) {
   $stmt2 = $pdo->prepare("
-    UPDATE `tvshows-rating`
+    UPDATE `movies-rating`
     SET `myRating`='$rating'
-    WHERE `tvshowID` = '$tvshowID' AND `userID` = '$userID'
+    WHERE `movieID` = '$movieID' AND `userID` = '$userID'
   ");
 } else {
   $stmt2 = $pdo->prepare("
-    INSERT INTO `tvshows-rating`(`tvshowID`, `userID`, `myRating`)
-    VALUES ('$tvshowID', '$userID', '$rating')
+    INSERT INTO `movies-rating`(`movieID`, `userID`, `myRating`)
+    VALUES ('$movieID', '$userID', '$rating')
   ");
 }
 

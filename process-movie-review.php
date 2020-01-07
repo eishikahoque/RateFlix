@@ -3,11 +3,11 @@ include("includes/db-config.php");
 
 $review = addslashes($_POST['review']);
 $userID = $_POST['userID'];
-$tvshowID = $_POST['tvshowID'];
+$movieID = $_POST['movieID'];
 
 $stmt1 = $pdo->prepare("
-  SELECT COUNT(*) as review_count FROM `tvshows-review`
-  WHERE `tvshowID` = '$tvshowID'
+  SELECT COUNT(*) as review_count FROM `movies-review`
+  WHERE `movieID` = '$movieID'
   AND `userID` = '$userID'
   ");
 
@@ -17,14 +17,14 @@ $row1 = $stmt1->fetch();
 
 if ($row1['review_count'] > 0) {
   $stmt2 = $pdo->prepare("
-    UPDATE `tvshows-review`
+    UPDATE `movies-review`
     SET `review`='$review'
-    WHERE `tvshowID` = '$tvshowID' AND `userID` = '$userID'
+    WHERE `movieID` = '$movieID' AND `userID` = '$userID'
   ");
 } else {
   $stmt2 = $pdo->prepare("
-    INSERT INTO `tvshows-review`(`reviewID`, `tvshowID`, `userID`, `review`)
-    VALUES (NULL, '$tvshowID', '$userID', '$review')
+    INSERT INTO `movies-review`(`reviewID`, `movieID`, `userID`, `review`)
+    VALUES (NULL, '$movieID', '$userID', '$review')
   ");
 }
 
