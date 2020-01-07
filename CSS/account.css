@@ -1,0 +1,33 @@
+.main-container{
+	margin: 24px;
+}
+
+.password{
+	border: none;
+}
+
+.password: focus{
+	outline: none;
+}
+
+.personal-info{
+	display: flex;
+}
+
+.personal-info p{
+	margin: 0;
+}
+
+.info{
+	background-color: #222222;
+	padding-left: 8px;
+}
+
+.tileImg {
+  width: 180px;
+  height: 220px;
+}
+
+.column{
+	display: flex;
+}
