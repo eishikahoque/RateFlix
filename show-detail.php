@@ -105,7 +105,12 @@ $row = $stmt->fetch();
         <button id="rateBtn">Rate</button>
       </form>
       <h3>Write a Review</h3>
-        <textarea rows="10" cols="40" id="myReview"></textarea>
+      <?php			
+				$stmt = $pdo->prepare("SELECT * FROM `tvshows-review` WHERE `tvshowID`='$tvshowID' AND `userID` ='$userID'");
+				$stmt->execute();
+				$row = $stmt->fetch();
+      ?>
+        <textarea rows="10" cols="40" id="myReview"><?php echo($row["review"]); ?></textarea>
         <div class="submitReviewBtn-row">
           <div class="characters">
           <span id="characterCount">0</span>&nbsp/&nbsp300</div>
@@ -126,4 +131,4 @@ $row = $stmt->fetch();
   </main>
   <script type="text/javascript" src="/RateFlix/JS/details-page.js"></script>
   <?php include("includes/footer.php"); ?> 
-</body>x
+</body>

@@ -23,6 +23,12 @@
 	padding-left: 8px;
 }
 
+.account-reviews{
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+}
+
 .tileImg {
   width: 180px;
   height: 220px;
@@ -30,4 +36,63 @@
 
 .column{
 	display: flex;
+	flex-direction: column;
+	margin: 6px;
+	padding: 12px;
 }
+
+.column p{
+	font-size: 14px;
+}
+
+.editReview{
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.editReviewBtn: hover{
+	color: #0A7D91;
+}
+
+.reviews{
+	background-color: #222222;
+	padding: 12px;
+}
+
+.fa-star:before {
+    color: #0A7D91;
+    font-size: 32px;
+}
+
+.rating-alignment{
+	display: flex;
+	justify-content: center;
+}
+
+.review-delete{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

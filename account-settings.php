@@ -1,5 +1,5 @@
 <?php session_start();
-$userID = $_SESSION["userID"];
+
 
 
 ?>
@@ -26,6 +26,7 @@ include("includes/db-config.php");
 ?>
 	<body>
 		<?php if (isset($_SESSION['userID'])){ 
+			$userID = $_SESSION["userID"];
 			$stmt = $pdo->prepare("SELECT * FROM `user` WHERE `userID` = '$userID';");
 
 			$stmt->execute();
@@ -34,6 +35,7 @@ include("includes/db-config.php");
 		?>
 		<main class="main-container">
 			<h1>Account</h1>
+
 			<section>
 				<h2>Personal Info</h2>
 				<div class="personal-info">
@@ -48,76 +50,149 @@ include("includes/db-config.php");
 				<div class="personal-info">
 					<p>Password:</p><p class="info"> <input type="password" class="password" name="password" value="<?php echo($row["password"]); ?>" readonly /></p>
 				</div>
-
-				<div class="edit-button">
-  		<a href="edit-user.php?userID=<?php echo($row["userID"]); ?>">Edit</a>
-  	</div>
 			</section>
+
 			<section>
-				<h2>Your TV Show Ratings</h2>
+				<h2>Your Tv Show Ratings</h2>
 				<?php 
 				$stmt = $pdo->prepare("SELECT * FROM `tvshows-rating` WHERE `userID` = '$userID';");
-
 				$stmt->execute();
-
-				while($row = $stmt->fetch()){ ?>
-				<p><?php echo($row["myRating"]); }?></p>
-			
+				$tvshowID = "";?>
+				<div class="account-reviews">
+					<?php while($row = $stmt->fetch()) {
+						$tvshowID = $row["tvshowID"]; ?>
+						<div class="column">
+							<?php
+							$stmtTV = $pdo->prepare("SELECT * FROM `tvshows` INNER JOIN `tvshows-rating` ON `tvshows`.`tvshowID`=`tvshows-rating`.`tvshowID` WHERE `tvshows`.`tvshowID`= '$tvshowID';");
+							$stmtTV->execute();
+							$row2 = $stmtTV->fetch();?>
+					
+							<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row2["images"]); ?>" /></a>
+							<div class="reviews">
+								<div class="rating-alignment"><p>
+									<span class="fa fa-star star starSelected"></span><?php echo($row["myRating"]); ?>
+								</p></div>
+							
+								<div class="editReview"> 
+									<li class="editReviewBtn">
+										<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+										<a href="tvshow-rate-delete.php?tvshowID=<?php echo($row["tvshowID"]);?>"><i class="fas fa-trash"></i></a>
+									</li>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
 			</section>
-			<div class="editReview"> 
-				<p class="editReviewBtn">
-					<a href="show-review-edit.php?tvshowID=<?php echo($row["tvshowID"]); ?>"><i class="fas fa-edit"></i></a>
-				</p>
-				<p class="deleteReview">
-					<a href="show-review-delete.php?tvshowID=<?php echo($row["tvshowID"]); ?>"><i class="fas fa-trash"></i></a>
-				</p>
-			</div>
+			
 			<section>
 				<h2>Your TV Show Reviews</h2>
 				<?php 
 				$stmt = $pdo->prepare("SELECT * FROM `tvshows-review` WHERE `userID` = '$userID';");
 				$stmt->execute();
-				$tvshowID = "";
-				while($row = $stmt->fetch()) {
-					$tvshowID = $row["tvshowID"]; ?>
-					<div class="column">
-						<p><?php echo($row["review"]); ?></p>
-						
-						<?php
-						$stmtTV = $pdo->prepare("SELECT * FROM `tvshows` INNER JOIN `tvshows-review` ON `tvshows`.`tvshowID`=`tvshows-review`.`tvshowID` WHERE `tvshows`.`tvshowID`= '$tvshowID';");
-						$stmtTV->execute();
-						$row2 = $stmtTV->fetch();?>
+				$tvshowID = "";?>
+				<div class="account-reviews">
+					<?php while($row = $stmt->fetch()) {
+						$tvshowID = $row["tvshowID"]; 
+						$reviewID = $row["reviewID"];?>
+						<div class="column">
+							<?php
+							$stmtTV = $pdo->prepare("SELECT * FROM `tvshows` INNER JOIN `tvshows-review` ON `tvshows`.`tvshowID`=`tvshows-review`.`tvshowID` WHERE `tvshows`.`tvshowID`= '$tvshowID';");
+							$stmtTV->execute();
+							$row2 = $stmtTV->fetch();?>
 				
-					<img class="tileImg" src="<?php echo($row2["images"]); ?>" />
+							<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row2["images"]); ?>" /></a>
+							<div class="reviews">
+								<p>
+									<?php echo($row["review"]); ?>
+								</p>
+							
+								<div class="editReview"> 
+									<li class="editReviewBtn">
+										<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+										<a href="show-review-delete.php?reviewID=<?php echo($row["reviewID"]);?>&tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-trash"></i></a>
+									</li>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
 				</div>
-				
-			<?php } ?>
 			</section>
 
 			<section>
 				<h2>Your Movie Ratings</h2>
 				<?php 
-				$stmt = $pdo->prepare("SELECT * FROM `tvshows-rating` WHERE `userID` = '$userID';");
-
+				$stmt = $pdo->prepare("SELECT * FROM `movies-rating` WHERE `userID` = '$userID';");
 				$stmt->execute();
-
-				while($row = $stmt->fetch()){;
-
-			?>
-			<p><?php echo($row["myRating"]); }?></p>
+				$movieID = "";?>
+				<div class="account-reviews">
+					<?php while($row = $stmt->fetch()) {
+						$movieID = $row["movieID"]; ?>
+						<div class="column">
+							<?php
+							$stmtMovie = $pdo->prepare("SELECT * FROM `movies` INNER JOIN `movies-rating` ON `movies`.`movieID`=`movies-rating`.`movieID` WHERE `movies`.`movieID`= '$movieID';");
+							$stmtMovie->execute();
+							$row2 = $stmtMovie->fetch();?>
+					
+							<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row2["images"]); ?>" /></a>
+							<div class="reviews">
+								<div class="rating-alignment"><p>
+									<span class="fa fa-star star starSelected"></span><?php echo($row["myRating"]); ?>
+								</p></div>
+							
+								<div class="editReview"> 
+									<li class="editReviewBtn">
+										<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+										<a href="movie-rate-delete.php?movieID=<?php echo($row["movieID"]); ?>"><i class="fas fa-trash"></i></a>
+									</li>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
 			</section>
 
 			<section>
 				<h2>Your Movie Reviews</h2>
 				<?php 
-				$stmt = $pdo->prepare("SELECT * FROM `tvshows-review` WHERE `userID` = '$userID';");
-
+				$stmt = $pdo->prepare("SELECT * FROM `movies-review` WHERE `userID` = '$userID';");
 				$stmt->execute();
-
-				while($row = $stmt->fetch()){;
-			?>
-			<p><?php echo($row["review"]); }?></p>
+				$movieID = "";?>
+				<div class="account-reviews">
+					<?php while($row = $stmt->fetch()) {
+						$movieID = $row["movieID"]; ?>
+						<div class="column">
+							<?php
+							$stmtMovie = $pdo->prepare("SELECT * FROM `movies` INNER JOIN `movies-review` ON `movies`.`movieID`=`movies-review`.`movieID` WHERE `movies`.`movieID`= '$movieID';");
+							$stmtMovie->execute();
+							$row2 = $stmtMovie->fetch();?>
+					
+							<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row2["images"]); ?>" /></a>
+							<div class="reviews">
+								<p>
+									<?php echo($row["review"]); ?>
+								</p>
+								
+								<div class="editReview"> 
+									<li class="editReviewBtn">
+										<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+										<a href="movie-review-delete.php?movieID=<?php echo($row["movieID"]); ?>"><i class="fas fa-trash"></i></a>
+									</li>
+								</div>
+							</div>
+						</div>
+					<?php } ?>
+				</div>
 			</section>
+		
 		</main>
 
 

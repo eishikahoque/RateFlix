@@ -46,6 +46,7 @@ include("includes/db-config.php");
 				    `movies`
 				WHERE
 				    `genre` = 'drama'
+				ORDER BY RAND() LIMIT 20
 				");
 
 			$stmt->execute(); ?>
@@ -97,6 +98,7 @@ include("includes/db-config.php");
 				    `movies`
 				WHERE
 				    `netflixOriginal` = '1'
+				   ORDER BY RAND() LIMIT 20
 				");
 
 			$stmt->execute(); ?>
@@ -148,6 +150,7 @@ include("includes/db-config.php");
 				    `movies`
 				WHERE
 				    `genre` = 'comedy'
+				 ORDER BY RAND() LIMIT 20
 				");
 
 			$stmt->execute(); ?>
@@ -181,7 +184,7 @@ include("includes/db-config.php");
 			<h2>Recently Released</h2>
 
 			<?php 
-			$stmt = $pdo->prepare("SELECT * FROM `movies` WHERE `releaseYear` = '2019'");
+			$stmt = $pdo->prepare("SELECT * FROM `movies` WHERE `releaseYear` = '2019' ORDER BY RAND() LIMIT 20");
 
 			$stmt->execute(); ?>
 
