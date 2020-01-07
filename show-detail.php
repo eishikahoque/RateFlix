@@ -91,8 +91,16 @@ $row = $stmt->fetch();
     </section>
     <section>
       <h3>Your Rating</h3>
+
+      <?php			
+				$stmt = $pdo->prepare("SELECT * FROM `tvshows-rating` WHERE `tvshowID`='$tvshowID' AND `userID` ='$userID'");
+				$stmt->execute();
+				$row = $stmt->fetch();
+      ?>
       
       <form>
+
+        <input type="hidden" name="currentRating" value="<?php echo($row["myRating"]); ?>" >
         
         <div class="rating">
           <input name="myrating" type="radio" value="5" /><span>☆</span><input name="myrating" type="radio" value="4" /><span>☆</span><input name="myrating" type="radio" value="3" /><span>☆</span><input name="myrating" type="radio" value="2" /><span>☆</span><input name="myrating" type="radio" value="1" /><span>☆</span>

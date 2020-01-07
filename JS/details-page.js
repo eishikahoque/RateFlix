@@ -9,6 +9,16 @@ document.getElementById('submitReview').addEventListener('click', function(event
   submitReview();
 }, false);
 
+document.addEventListener("DOMContentLoaded", function() {
+  var currentReview = reviewSection.value;
+  if (currentReview.length > 300) {
+    currentReview = currentReview.substr(0, 300);
+  }
+  characterCount.innerText = currentReview.length;
+
+  var currentRating = document.forms[1]['currentRating'].value;
+  document.forms[1]['myrating'].value = currentRating;
+}, false);
 
 var reviewSection = document.getElementById('myReview');
 reviewSection.addEventListener('input', function(event) {
