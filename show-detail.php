@@ -108,7 +108,7 @@ $row = $stmt->fetch();
         <textarea rows="10" cols="40" id="myReview"></textarea>
         <div class="submitReviewBtn-row">
           <div class="characters">
-          <span id="characterCount">0</span> /300 </div>
+          <span id="characterCount">0</span>&nbsp/&nbsp300</div>
           <button id="submitReview" class="submitReviewBtn">Submit</button>
         </div>
         
