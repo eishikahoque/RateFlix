@@ -7,95 +7,50 @@ include('includes/db-config.php');
 
 include("includes/header.php");
 
-$stmtProduct = $pdo->prepare("SELECT * FROM `product` WHERE `userID` = '$userID';");
-$stmtProduct->execute();
+$stmtList = $pdo->prepare("SELECT * FROM `lists` WHERE `userID` = '$userID' AND `tvshowID` ='$tvshowID' AND `movieID` ='$movieID';");
+$stmtList->execute();
 
-$stmtUser = $pdo->prepare("SELECT * FROM `user` WHERE `userID` = '$userID'");
-$stmtUser->execute();
-$rowUser = $stmtUser->fetch();
+$stmtTV = $pdo->prepare("SELECT * FROM `tvshows` WHERE `tvshowID` = '$tvshowID'");
+$stmtTV->execute();
+$rowTV = $stmtTV->fetch();
 
+$stmtMovie = $pdo->prepare("SELECT * FROM `movies` WHERE `movieID` = '$movieID'");
+$stmtMovie->execute();
+$rowMovie = $stmtMovie->fetch();
 ?>
-
+<!DOCTYPE html>
 <html>
-<head> 
-	<title>Postings</title>
-	<meta charset="utf-8" />
-	<meta name="description" content="ToolBot" />
-	<meta name="keywords" content="tools, renting, local" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<head> 
+		<meta charset="utf-8" />
+		<meta name="description" content="rating movies and tvshows" />
+		<meta name="keywords" content="rate, movies, tvshows, lists, share, netflix" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/RateFlix/CSS/details-page.css">
+		<link href="https://fonts.googleapis.com/css?family=Quicksand:300|Roboto+Condensed:400,700|Yanone+Kaffeesatz:400,700&display=swap" rel="stylesheet">
+		<script src="https://kit.fontawesome.com/61799bdb29.js" crossorigin="anonymous"></script>
+		<link rel="icon" type="image/png" sizes="32x32" href="/RateFlix/favicomatic/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
+		<title>MY LISTS</title>
 
-	<link rel="stylesheet" href="CSS/styles.css" />
-
-</head>
-
-<main>
-		<?php
-		$lender = $rowUser["lender"];
-
-		if(isset($userID) && ($lender == 1)){ ?>
+	</head>
+	<body>
+		<main>
+				
+			<div class="createBtn">
+				<a href="lists-create.php"><button>Create List</button></a>
+			</div>
 			
-		<div class="addBtn">
-			<a href="create-posting.php"><button>Create Posting</button></a>
-		</div>
-		<section class="productList">
-		<?php
-
-		while($rowProduct = $stmtProduct->fetch()){
-			echo('<article class="productBlock">');
-			?>
-			<div class="productAlter"> 
-				<p class="productAlterBtn">
-					<a href="edit-posting.php?productID=<?php echo($rowProduct["productID"]); ?>"><i class="fas fa-edit"></i></a>
-				</p>
-				<p class="productAlterBtn">
-					<a href="delete-posting.php?productID=<?php echo($rowProduct["productID"]); ?>"><i class="fas fa-trash"></i></a>
-				</p>
-			</div>
-			<img class= "imgThumbnail" src="<?php echo ($rowProduct['imageUpload']); ?>"/>
 			<?php
-			echo("<h2 class='heading'>");
-			echo($rowProduct["itemName"]);
-			echo("</h2>");
-			?> 
-			<div class="productIcons"> 
-			<img src="icons/date.png" class="icon"/>
-			<p> <?php echo($rowProduct["rentDate"]); ?> day rental </p>
-			</div>
 
-			<div class="productIcons"> 
-			<img src="icons/include.png" class="icon"/>
-			<p> <?php echo($rowProduct["included"]); ?> </p>
-			</div>
+			while($rowList = $stmtList->fetch()){ ?>
 
-			<div class="productIcons">  
-			<img src="icons/truck.png" class="icon"/>
-			<p> <?php echo($rowProduct["transportOption"]);?> </p>
-			</div>
+			<?php } ?>
+			
+		</main>
+		
+		<?php include("includes/footer.php"); ?>
 
-			<p> <span class="bold"> Brand: </span>
-			<?php echo($rowProduct["brand"]); ?> </p>
-
-			<p> <span class="bold"> Category: </span>
-			<?php echo($rowProduct["type"]); ?>
-			</p>
-			<p> <span class="bold"> Product Description: </span>
-			<?php echo($rowProduct["blurb"]); ?> 
-			</p>
-			<p>
-			<span class="priceBlock"> $ <span class="price"> <?php echo($rowProduct["price"]); ?> </span> /day </span> 
-			</p>
-			<?php
-			echo ("</article>");
-			}
-		echo("</section>");
-		} else if(isset($userID) && ($lender == 0)){ ?>
-			<h1> Looks Like You're Not a Lender Yet </h1>
-			<p> Want to rent out your tools? Becoming a lender with ToolBot only takes a few seconds
-			and provides endless benifits, sign up below to get started! </p>
-			<a href="lender-signup.php"> <button> Become a Lender </button> </a>
-		<?php } ?>
-	</main>
-	<?php include("includes/footer.php"); ?>
-</body>
+	</body>
 </html>
-<?php } else { header("Location: landing1.php"); } ?>
+

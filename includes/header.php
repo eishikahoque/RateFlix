@@ -17,7 +17,7 @@
 
 <nav id="nav">
 	<ul class="nav-bar">
-		<span class="logo">RateFlix</span>
+		<a href="/RateFlix/home.php"><span class="logo">RateFlix</span></a>
 		<?php if (isset($_SESSION['userID'])){ ?>
 			<div class="login-header">
 				<div class="header-search-form">
@@ -34,10 +34,14 @@
 						<a href="/RateFlix/movie-page.php">Movies</a>
 					</li>
 					<li class="nav-item">
-						<a href="/RateFlix/mylist.php">My Lists</a>
+						<a href="/RateFlix/lists-show-all.php">My Lists</a>
 					</li>
-					<li class="nav-item">
-						<a href=""><i class="far fa-user"></i></a>
+					<li class="nav-item"><i class="far fa-user"></i>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" href="/RateFlix/account-settings.php">Account Settings</a></li>
+							<li><a class="dropdown-item" href="/RateFlix/logout.php">Logout</a></li>
+							
+						</ul>
 					</li>
 				</div>
 			</div>

@@ -1,3 +1,7 @@
+<?php session_start();
+$userID = $_SESSION["userID"];
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,75 +16,194 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="/RateFlix/favicomatic/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
-
+	<title>RATEFLIX</title>
 </head>
 <?php
 
 include("includes/header.php"); 
 include("includes/db-config.php"); 
-
 ?>
-
-<!DOCTYPE html>
-<html>
-
-	<head>
-
-		<title>RATEFLIX</title>
-		<!-- <link rel="stylesheet" type="text/css" href="includes/header.css" /> -->
-
-	</head>
-
+<?php if (isset($_SESSION['userID'])){ ?>
 	<body>
 		<section>
-			<h2>Tv Show Dramas</h2>
+			<h2>Dramas</h2>
 			<?php 
-			$stmt = $pdo->prepare("SELECT * FROM `tvshows` WHERE `genre` = 'drama'");
-			
-			$stmt->execute();
+			$stmt = $pdo->prepare("
+				SELECT
+				    `images`,
+				    `tvshowID` as `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+				    `genre` = 'drama'
+				UNION
+				SELECT
+				    `images`,
+				    `movieID` as `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `genre` = 'drama'
+				");
 
-			?>
+			$stmt->execute(); ?>
 
 			<div class="row">
-    			<div class="row__inner">
+    			<?php
 
+				while ($row = $stmt->fetch()) {
+
+					$link = "";
+
+				if ($row['source'] = 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+
+				} else if($row['source'] = 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				}
+				?>
+
+					<div class="tile">
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
+
+				<?php } ?>
+			</div>
+		</section>
+
+		<section>
+			<h2>Netflix Tv Shows Original</h2>
+			<?php 
+			$stmt = $pdo->prepare("
+				SELECT
+				    `images`,
+				    `tvshowID` as `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+				    `netflixOriginal` = '1'
+				UNION
+				SELECT
+				    `images`,
+				    `movieID` as `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `netflixOriginal` = '1'
+				");
+
+			$stmt->execute(); ?>
+
+			<div class="row">
+    			<?php
+
+				while ($row = $stmt->fetch()) {
+
+					$link = "";
+
+				if ($row['source'] = 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+
+				} else if($row['source'] = 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				}
+				?>
+
+					<div class="tile">
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
+
+				<?php } ?>
+			</div>
+		</section>
+
+		<section>
+			<h2>Comedies</h2>
+			<?php 
+			$stmt = $pdo->prepare("
+				SELECT
+				    `images`,
+				    `tvshowID` as `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+				    `genre` = 'comedy'
+				UNION
+				SELECT
+				    `images`,
+				    `movieID` as `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `genre` = 'comedy'
+				");
+
+			$stmt->execute(); ?>
+
+			<div class="row">
+    			<?php
+
+				while ($row = $stmt->fetch()) {
+
+					$link = "";
+
+				if ($row['source'] = 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+
+				} else if($row['source'] = 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				}
+				?>
+
+					<div class="tile">
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
+
+				<?php } ?>
+			</div>
+		</section>
+		<section>
+			<h2>Recently Released</h2>
+
+			<?php 
+			$stmt = $pdo->prepare("SELECT * FROM `movies` WHERE `releaseYear` = '2019'");
+
+			$stmt->execute(); ?>
+
+			<div class="row">
     			<?php
 
 				while ($row = $stmt->fetch()){ ?>
 
 					<div class="tile">
-				        <div class="tile__media">
-				          <img class="tile__img" src=" <?php echo($row["images"]); ?>" alt="" src="show-detail.php?showID=<?php echo($row['showID']) ?>" />
-				        </div>
-				        <div class="tile__details">
-				          <div class="tile__title">
-				            <?php echo($row["name"]); ?>
-				          </div>
-				        </div>
-				      </div>
-
+						<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
 
 				<?php } ?>
-
-    					</div>
-
-    				</div>
-
-		
+			</div>
 		</section>
-		<section>
-			<h2>Netflix Tv Shows Original</h2>
-			<?php 
-			$stmt = $pdo->prepare("SELECT * FROM `tvshows` WHERE `netflixOriginal` = '1'");
-	
-				$stmt->execute();
 
-				while ($row = $stmt->fetch()){
-					echo($row["images"]);
-				}
-			?>
-		</section>
-		
+		<?php include("includes/footer.php"); ?> 
+		<?php } else { 
+			header("Location: landingpage.php");}			?>
 
 	</body>
 

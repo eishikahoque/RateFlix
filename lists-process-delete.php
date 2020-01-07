@@ -1,13 +1,13 @@
 <?php session_start(); 
 
-$productID = $_POST["productID"];
+$listID = $_POST["listID"];
 
 include ("includes/db-config.php");
 
-$stmt = $pdo->prepare("DELETE FROM `product` WHERE `productID` = '$productID'");
+$stmt = $pdo->prepare("DELETE FROM `lists` WHERE `listID` = '$listID'");
 
 $stmt->execute();
 
-header("Location: postinglist.php");
+header("Location: lists-show-all.php");
 
 ?>
