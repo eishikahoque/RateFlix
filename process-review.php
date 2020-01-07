@@ -1,12 +1,12 @@
 <?php
 include("includes/db-config.php");
 
-$rating = $_POST['rating'];
+$review = addslashes($_POST['review']);
 $userID = $_POST['userID'];
 $tvshowID = $_POST['tvshowID'];
 
 $stmt1 = $pdo->prepare("
-  SELECT COUNT(*) as rating_count FROM `tvshows-rating`
+  SELECT COUNT(*) as review_count FROM `tvshows-review`
   WHERE `tvshowID` = '$tvshowID'
   AND `userID` = '$userID'
   ");
@@ -15,23 +15,23 @@ $stmt1->execute();
 
 $row1 = $stmt1->fetch();
 
-if ($row1['rating_count'] > 0) {
+if ($row1['review_count'] > 0) {
   $stmt2 = $pdo->prepare("
-    UPDATE `tvshows-rating`
-    SET `tvshowID`='$tvshowID',`userID`='$userID',`myRating`='$rating'
+    UPDATE `tvshows-review`
+    SET `tvshowID`='$tvshowID',`userID`='$userID',`review`='$review'
     WHERE `tvshowID` = '$tvshowID' AND `userID` = '$userID'
   ");
 } else {
   $stmt2 = $pdo->prepare("
-    INSERT INTO `tvshows-rating`(`tvshowID`, `userID`, `myRating`)
-    VALUES ('$tvshowID', '$userID', '$rating')
+    INSERT INTO `tvshows-review`(`reviewID`, `tvshowID`, `userID`, `review`)
+    VALUES (NULL, '$tvshowID', '$userID', '$review')
   ");
 }
 
 $stmt2->execute();
 $row2 = $stmt2->fetch();
 
-if ($row1['rating_count'] > 0 || $row2) {
+if ($row1['review_count'] > 0 || $row2) {
   echo('{"success": "true"}');
 } else {
   echo('{"success": "false"}');

@@ -74,7 +74,7 @@ h3{
 	justify-content: flex-end;
 }
 
-.submitReviewBtn{
+.submitReviewBtn {
 	font-size: 12px;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 300;
@@ -87,6 +87,7 @@ h3{
 
 #myReview{
 	background-color: #222222;
+  color: #fff;
 	font-size: 12px;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 300;
@@ -130,4 +131,41 @@ h3{
   background: linear-gradient(90deg, #fc0 calc(var(--rating) / 5 * 100%), #fff calc(var(--rating) / 5 * 100%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.rating {
+  font-size: 42px;
+  line-height: 40px;
+  font-family: Times;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating > *:hover,
+.rating > *:hover ~ span,
+.rating:not(:hover) > input:checked ~ span {
+  color: transparent;
+}
+.rating > *:hover:before,
+.rating > *:hover ~ span:before,
+.rating:not(:hover) > input:checked ~ span:before {
+   content: "\2605";
+   position: absolute;
+   left: 0; 
+   color: #fc0;
+}
+
+.rating > input {
+   margin-left: -42px;
+   margin-right: 0;
+   height: 40px;
+   width: 40px;
+   position: relative;
+   z-index: 2;
+   opacity: 0;
 }
