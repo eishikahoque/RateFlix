@@ -2,11 +2,11 @@
 
 	$reviewID = $_POST["reviewID"];
 
-	include ("includes/db-config.php");
+	include("includes/db-config.php");
 
-	$stmt = $pdo->prepare("DELETE FROM `product` WHERE `productID` = '$productID'");
+	$stmt = $pdo->prepare("DELETE FROM `tvshows-review` WHERE `reviewID` = '$reviewID'");
 
 	$stmt->execute();
 
-	header("Location: postinglist.php");
+	header("Location: account-settings.php");
 ?>

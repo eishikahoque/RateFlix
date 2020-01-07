@@ -29,7 +29,7 @@ include("includes/db-config.php");
 			$userID = $_SESSION["userID"];
 			?>
 
-			<section>
+			<section class="review-delete">
 				<h2>Are you sure you want to delete your TV show review?</h2>
 				<?php 
 				$reviewID = $_GET["reviewID"];
@@ -38,17 +38,18 @@ include("includes/db-config.php");
 				<div class="account-reviews">
 					<?php $row = $stmt->fetch();
 						?>
-							<div class="reviews">
-								<p>
+							<div>
+								<p class="reviews">
 									<?php echo($row["review"]); ?>
 								</p>
-							</div>
+							
 							<form action="show-review-process-delete.php" method="POST">
 									<input type="hidden" name="reviewID" value="<?php echo($row["reviewID"]); ?>" />
 									<div class="delete-button-row">
-										<button>Confirm Delete</button>
+										<button class="deleteBtn">Confirm Delete</button>
 									</div>
 								</form>
+								</div>
 						</div>
 				</div>
 			</section>

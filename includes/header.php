@@ -23,7 +23,7 @@
         <div class="header-search-form">
           <form id="searchForm" action="/RateFlix/process-search.php" method="POST">
             <i class="fas fa-search"></i>
-            <input class="search-bar" type="text" name="searchTerm" id="txtName" placeholder="Search..." />
+            <input class="search-bar" type="text" name="searchTerm" id="txtName" placeholder="Search"/>
           </form>
         </div>
         <ul class="nav-item-container">

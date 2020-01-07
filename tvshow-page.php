@@ -35,7 +35,7 @@ include("includes/db-config.php");
 
 			?>
 
-			<div class="row">
+			<div class="show-all-row">
 
     			<?php
 

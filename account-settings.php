@@ -39,16 +39,16 @@ include("includes/db-config.php");
 			<section>
 				<h2>Personal Info</h2>
 				<div class="personal-info">
-					<p>First Name:</p><p class="info"> <?php echo($row["firstName"]); ?></p>
+					<p class="title">First Name:</p><p class="info"> <?php echo($row["firstName"]); ?></p>
 				</div>
 				<div class="personal-info">
-					<p>Last Name:</p><p class="info"> <?php echo($row["lastName"]); ?></p>
+					<p class="title">Last Name:</p><p class="info"> <?php echo($row["lastName"]); ?></p>
 				</div>
 				<div class="personal-info">
-					<p>Email:</p><p class="info"> <?php echo($row["email"]); ?></p>
+					<p class="title">Email:</p><p class="info"> <?php echo($row["email"]); ?></p>
 				</div>
 				<div class="personal-info">
-					<p>Password:</p><p class="info"> <input type="password" class="password" name="password" value="<?php echo($row["password"]); ?>" readonly /></p>
+					<p class="title">Password:</p><p class="info"> <input type="password" class="password" name="password" value="<?php echo($row["password"]); ?>" readonly /></p>
 				</div>
 			</section>
 
@@ -76,9 +76,6 @@ include("includes/db-config.php");
 								<div class="editReview"> 
 									<li class="editReviewBtn">
 										<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
-									</li>
-									<li class="deleteReviewBtn">
-										<a href="tvshow-rate-delete.php?tvshowID=<?php echo($row["tvshowID"]);?>"><i class="fas fa-trash"></i></a>
 									</li>
 								</div>
 							</div>
@@ -147,9 +144,6 @@ include("includes/db-config.php");
 								<div class="editReview"> 
 									<li class="editReviewBtn">
 										<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
-									</li>
-									<li class="deleteReviewBtn">
-										<a href="movie-rate-delete.php?movieID=<?php echo($row["movieID"]); ?>"><i class="fas fa-trash"></i></a>
 									</li>
 								</div>
 							</div>

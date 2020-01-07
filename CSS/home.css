@@ -8,6 +8,11 @@ section {
   overflow-x: auto;
 }
 
+.show-all-row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .tile {
   width: 185px;
   transition: all .2s ease-in-out;
@@ -38,8 +43,7 @@ section {
 }
 
 @media only screen and (max-width: 840px) {
-	.row {
-  		-webkit-overflow-scrolling: touch;
-  	}
-}
+
+
+
 }

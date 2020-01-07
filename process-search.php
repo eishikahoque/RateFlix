@@ -1,6 +1,61 @@
 <?php  session_start();
 $userID = $_SESSION["userID"];
+include("includes/db-config.php");
+$searchTerm = $_POST["searchTerm"];
+
+
+$stmtSearch = $pdo->prepare("
+				SELECT
+				    name,
+				    releaseYear,
+				    genre,
+				    images,
+				    `tvshowID` AS `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+					`name` LIKE '%$searchTerm%'
+					OR
+					`releaseYear` LIKE '%$searchTerm%'
+					OR
+				    `genre` LIKE '%$searchTerm%'  
+				UNION
+				SELECT
+				    name,
+				    releaseYear,
+				    genre,
+				    images,
+				    `movieID` AS `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `name` LIKE '%$searchTerm%'
+					OR
+					`releaseYear` LIKE '%$searchTerm%'
+					OR
+				    `genre` LIKE '%$searchTerm%'  
+				");
+				// 	 UNION
+				// -- SELECT
+				// -- 	`fname`,
+				// -- 	`mname`,
+				// -- 	`lname`,
+				// -- 	`actorID` AS `id`,
+				// -- FROM
+				// -- 	`actors`
+				// -- WHERE 
+				// -- 	`firstName` LIKE '%$searchTerm%'
+				// -- 	OR
+				// -- 	`middleName` LIKE '%$searchTerm%'
+				// -- 	OR
+				// --     `lastName` LIKE '%$searchTerm%'
+
+$stmtSearch->execute();
+
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -18,59 +73,35 @@ $userID = $_SESSION["userID"];
 	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
 	<title>Search <?php echo("$searchTerm");?></title>
 </head>
-<?php
-$searchTerm = $_POST["searchTerm"];
-include("includes/header.php"); 
-include("includes/db-config.php"); 
 
-// $stmtSearch = $pdo->prepare("SELECT * FROM `tvshows` WHERE `name` LIKE '%$searchTerm%' OR `genre` LIKE '%$searchTerm%'");
+<body>
+	<?php include("includes/header.php"); ?>
+<!-- // $stmtSearch = $pdo->prepare("SELECT * FROM `tvshows` WHERE `name` LIKE '%$searchTerm%' OR `genre` LIKE '%$searchTerm%'");
  // OR 
-	// `type` LIKE '%$searchTerm%' AND `availability` = '1'
-				$stmtSearch = $pdo->prepare("SELECT
-				    `name`,
-				    `genre`,
-				    `tvshowID` as `id`,
-				    'tv' AS `source`
-				FROM
-				    `tvshows`
-				WHERE
-				    `genre` = '%$searchTerm%'
-				    OR
-				    `name` = '&$searchTerm%'
-				UNION
-				SELECT
-				    `name`,
-				    `genre`,
-				    `movieID` as `id`,
-				    'movie' AS `source`
-				FROM
-				    `movies`
-				WHERE
-				    `genre` = '%$searchTerm%'
-				    OR
-				    `name` = '&$searchTerm%' ");
-
-$stmtSearch->execute();
-
-?>
+	// `type` LIKE '%$searchTerm%' AND `availability` = '1' -->		
 		<section>
-			<div class="row">
+			<div>
+				<h1>You searched for <?php echo("$searchTerm"); ?></h1>
+			</div>
+			<div class="show-all-row">
     			<?php
 
 				while ($row = $stmtSearch->fetch()) {
 
 					$link = "";
 
-				if ($row['source'] = 'tv') {
+				if ($row['source'] === 'tv') {
 					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
 
-				} else if($row['source'] = 'movie') {
+				} else if($row['source'] === 'movie') {
 					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
 				}
 				?>
 
+		
+
 					<div class="tile">
-						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]); ?>"/></a>
 						<!-- <div class="tileDetails"> -->
 							<?php // echo($row["name"]); ?>
 						<!-- </div> -->
@@ -79,3 +110,5 @@ $stmtSearch->execute();
 				<?php } ?>
 			</div>
 		</section>
+</body>
+</html>

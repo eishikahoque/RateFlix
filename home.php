@@ -58,11 +58,11 @@ include("includes/db-config.php");
 
 					$link = "";
 
-				if ($row['source'] = 'tv') {
+				if($row['source'] === 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				} else if ($row['source'] === 'tv') {
 					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
 
-				} else if($row['source'] = 'movie') {
-					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
 				}
 				?>
 
@@ -110,12 +110,11 @@ include("includes/db-config.php");
 
 					$link = "";
 
-				if ($row['source'] = 'tv') {
-					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
-
-				} else if($row['source'] = 'movie') {
+				if($row['source'] === 'movie') {
 					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
-				}
+				} else if ($row['source'] === 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+				} 
 				?>
 
 					<div class="tile">
@@ -135,7 +134,7 @@ include("includes/db-config.php");
 			$stmt = $pdo->prepare("
 				SELECT
 				    `images`,
-				    `tvshowID` as `id`,
+				    `tvshowID` AS `id`,
 				    'tv' AS `source`
 				FROM
 				    `tvshows`
@@ -144,7 +143,7 @@ include("includes/db-config.php");
 				UNION
 				SELECT
 				    `images`,
-				    `movieID` as `id`,
+				    `movieID` AS `id`,
 				    'movie' AS `source`
 				FROM
 				    `movies`
@@ -162,10 +161,10 @@ include("includes/db-config.php");
 
 					$link = "";
 
-				if ($row['source'] = 'tv') {
+				if ($row['source'] === 'tv') {
 					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
 
-				} else if($row['source'] = 'movie') {
+				} else if($row['source'] === 'movie') {
 					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
 				}
 				?>
@@ -194,7 +193,7 @@ include("includes/db-config.php");
 				while ($row = $stmt->fetch()){ ?>
 
 					<div class="tile">
-						<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
 						<!-- <div class="tileDetails"> -->
 							<?php // echo($row["name"]); ?>
 						<!-- </div> -->

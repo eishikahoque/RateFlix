@@ -23,7 +23,7 @@
 		?>
 
 		<?php 
-		$stmt = $pdo->prepare("SELECT * FROM `tvshows`ORDER BY RAND() LIMIT 10");
+		$stmt = $pdo->prepare("SELECT * FROM `tvshows`ORDER BY RAND() LIMIT 12");
 
 		$stmt->execute(); ?>
 
@@ -35,7 +35,7 @@
 		<?php } ?>
 		</div>
 		<?php 
-		$stmt = $pdo->prepare("SELECT * FROM `movies`ORDER BY RAND() LIMIT 10");
+		$stmt = $pdo->prepare("SELECT * FROM `movies`ORDER BY RAND() LIMIT 12");
 
 		$stmt->execute(); ?>
 
@@ -46,24 +46,34 @@
 			</div>
 		<?php } ?>
 		</div>
-		<div class="banners">
+		<div class="cta">
+			<div class="banners">
 			<img src="/RateFlix/images/rate.png">
 			<div class="items">
-				<h1>Rate & Review</h1>
+				<h1>Rate </h1>
 				<p>And get movies and shows recommended to you to watch next. </p>
-				<button class="landing-button-subtle">SIGN UP NOW</button>
+				<button class="landing-button-subtle"><a href="signup-form.php">SIGN UP NOW</button></a>
 			</div>
-			
-		</div>
+			</div>
+			<div class="banners">
+			<img src="/RateFlix/images/rate.png">
+			<div class="items">
+				<h1>Review</h1>
+				<p>And join the community of movie lovers. </p>
+				<button class="landing-button-subtle"><a href="signup-form.php">SIGN UP NOW</button></a>
+			</div>
+			</div>
 		<div class="banners">
 			<img src="/RateFlix/images/review.png">
 			<h1>Add to your list.<h1>
 			<p> Add any movies and shows to your personalized lists to come back to later. </p>
-			<button class="landing-button-subtle">SIGN UP NOW</button>
+			<button class="landing-button-subtle"><a href="signup-form.php">SIGN UP NOW</button></a>
 		</div>
+		</div>
+		
 		<div class="banners">
 			<p> RateFlix is an fun and friendly online database designed to help you explore the world of movies and Tv shows and decide what to watch. Our searchable database includes many movies and Tv shows, including Netflix Originals. Our core feature is to create an interactive and friendly environment to search, review and rate movies and Tv shows. We will soon add on the feature to share and become friends and interact with other movie lovers and Tv show enthusiasts.  </p>
-			<button class="landing-button">SIGN UP NOW</button>
+			<button class="landing-button"><a href="signup-form.php">SIGN UP NOW</button></a>
 		</div>
 		
 

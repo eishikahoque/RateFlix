@@ -69,12 +69,13 @@ a {
   /*letter-spacing: 0.1rem;*/
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 
 .nav-item {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   padding: 0 8px;
 }
 
@@ -86,36 +87,37 @@ a {
 
 .header-search-form {
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
   justify-content: center;
   width: 55%;
-  padding-top: 16px;
-  margin: 0 24px;
+  /*padding-top: 16px;*/
+  margin: 0 4px;
 }
 
 .logo {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 3rem;
-    font-family: 'Yanone Kaffeesatz', sans-serif;
-    font-weight: 700;
-    color: #2DCDEA;
-    text-transform: uppercase;
-    padding: 0 16px;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 3rem;
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 700;
+  color: #2DCDEA;
+  text-transform: uppercase;
+  padding-left: 16px;
+  padding-top: 4px;
 }
 
 .fa-search {
   /* Required to override font awesome display inline block style */
   display: flex !important;
-    flex-direction: column;
-    justify-content: center;
-    padding-right: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 0.5rem;
 }
 
 #searchForm {
   display: flex;
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .search-bar {
@@ -123,17 +125,18 @@ a {
   transition: width 0.4s ease-in-out;
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid;
+  border: 1px solid #222222 ;
+  background-color: #222222;
 }
 
 .search-bar:focus {
   width: 100%;
-  border: 2px solid #036272;
+  border: 2px solid #0A7D91;
 }
 
 .landing-buttons {
   display: inline-block;
-    margin: auto 0;
+  margin: auto 0;
 }
 
 .landing-buttons button {
@@ -186,9 +189,9 @@ ul li ul:hover {
 ul li ul li {
   clear: both;
   width: 100%;
-  padding: 4px 0;
+  padding: 12px;
 }
 
 .dropdown li:hover {
-  background-color: darkgrey;
+  background-color: #0A7D91;
 }
