@@ -9,7 +9,7 @@ section {
 }
 
 .tile {
-  width: 19%;
+  width: 185px;
   transition: all .2s ease-in-out;
 }
 

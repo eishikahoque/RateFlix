@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
 	margin: 14px;
 	display: flex;
 
@@ -115,4 +115,19 @@ h3{
 	width: 80px;
  	height: 120px;
  	margin: 0 4px;
+}
+
+.stars {
+  display: inline-block;
+  font-size: 18px;
+  font-family: Times;
+  line-height: 18px;
+}
+
+.stars::before {
+  content: '★★★★★';
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #fc0 calc(var(--rating) / 5 * 100%), #fff calc(var(--rating) / 5 * 100%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

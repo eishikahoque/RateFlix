@@ -45,53 +45,17 @@ $row = $stmt->fetch();
 					<h2><?php echo($row["tvRating"]); ?></h2>
 					<h2><?php echo($row["season"]); ?> Seasons</h2>
 					<h2><?php echo($row["episodes"]); ?> Episodes</h2>
-					 <h2><?php
-						$rateAvg = $pdo->prepare("SELECT AVG(`rating`) as avrg FROM `tvshows-rating` WHERE `tvshowID` = '$tvshowID'");
-						$rateAvg->execute();
-						$rowAVG = $rateAvg->fetch(); ?>
-						<?php 
-						if($rowAVG["avrg"] <= 1){ ?>
-							<div id="stars"> 
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							</div>
-						<?php } else if ($rowAVG["avrg"] <= 2){ ?>
-							<div id="stars"> 
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							</div>
-						<?php } else if ($rowAVG["avrg"] <= 3){ ?>
-							<div id="stars"> 
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star"></span>
-							<span class="fa fa-star star"></span>
-							</div>
-						<?php } else if ($rowAVG["avrg"] <= 4){ ?>
-							<div id="stars"> 
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star"></span>
-							</div>
-						<?php } else if ($rowAVG["avrg"] <= 5 || $rowAVG["avrg"] >= 5){ ?>
-							<div id="stars"> 
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							<span class="fa fa-star star starSelected"></span>
-							</div>
-						<?php } ?>
-					</h2>
+            
+            <?php
+              $rateAvg = $pdo->prepare("SELECT AVG(`myRating`) as avrg FROM `tvshows-rating` WHERE `tvshowID` = '$tvshowID'");
+              $rateAvg->execute();
+              $rowAVG = $rateAvg->fetch();
+              if ($rowAVG["avrg"] === NULL) {
+                $rowAVG["avrg"] = 0;
+              } 
+            ?>
+              <div class="stars" style="--rating: <?php echo($rowAVG["avrg"]); ?>;"></div>
+
 				</div>
 				<p><? echo($row["blurb"]); ?></p>
 				<div class="same-line">
@@ -141,6 +105,17 @@ $row = $stmt->fetch();
 				<label for="star4"> <span class="fa fa-star star ratingStar" id="starIcon4"></span> </label> <input type="radio" value="4" name="rating" id="star4">
 				
 				<label for="star5"> <span class="fa fa-star star ratingStar" id="starIcon5"></span> </label> <input type="radio" value="5" name="rating" id="star5">
+
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+          <symbol id="star" viewBox="214.7 0 182.6 792">
+            <!-- <path>s and whatever other shapes in here -->  
+          </symbol>
+        </svg>
+          
+      <!-- Then use anywhere and as many times as we want! -->
+      <svg class="icon">
+        <use xlink:href="#star" />
+      </svg>
 				
 				<input type="hidden" name="userID" 
 				value="<?php echo($userID); ?>" >
