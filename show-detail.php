@@ -21,6 +21,7 @@ $row = $stmt->fetch();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="/RateFlix/CSS/details-page.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300|Roboto+Condensed:400,700|Yanone+Kaffeesatz:400,700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/61799bdb29.js" crossorigin="anonymous"></script>
   <link rel="icon" type="image/png" sizes="32x32" href="/RateFlix/favicomatic/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
@@ -35,7 +36,7 @@ $row = $stmt->fetch();
     <section class="align-middle-fixed">
       <div class="first-line">
         <h1><? echo($row["name"]); ?></h1>
-        <button class="btn">+ Lists</button>
+        <button class="btn" id="addToListBtn">+ Lists</button>
         <!-- <button class="btn">Share</button> -->
       </div>
         <div class="second-line">
@@ -137,6 +138,35 @@ $row = $stmt->fetch();
         <?php }; ?>
         </div>
     </section>
+
+    <div class="modal" id="myModal">
+      <div class="modal-content">
+        <i class="fas fa-times"></i>
+        <p>All of my Lists</p>
+        <?php 
+        $stmt = $pdo->prepare("SELECT * FROM `lists` WHERE `userID` = '$userID'; ");
+        $stmt->execute();
+        ?>
+        
+          <ul>
+          <?php while($row = $stmt->fetch()){?>
+            <li><?php echo($row["listName"]); ?></li> 
+            // do javascript so that if clicked on add userid and list name etc to database
+            <?php };?>
+          </ul>
+          <form action="lists-process-create.php" method="POST" enctype="multipart/form-data">
+		        <div class="form">
+              <label>Create New List</label>
+              <input class="form-input" type="text" name="listName" id="listName" required/>
+            </div>
+            <div class="createBtn-row">
+              <button id="createList" class="createBtn">Create List</button>
+              // create and display and add automatically
+            </div>
+	        </form>
+        
+      </div>
+    </div>
   </main>
   <script type="text/javascript" src="/RateFlix/JS/details-page.js"></script>
   <?php include("includes/footer.php"); ?> 

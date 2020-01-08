@@ -9,6 +9,11 @@ document.getElementById('submitReview').addEventListener('click', function(event
   submitReview();
 }, false);
 
+var reviewSection = document.getElementById('myReview');
+reviewSection.addEventListener('input', function(event) {
+  updateCharacterCount(event);
+});
+
 document.addEventListener("DOMContentLoaded", function() {
   var currentReview = reviewSection.value;
   if (currentReview.length > 300) {
@@ -20,12 +25,12 @@ document.addEventListener("DOMContentLoaded", function() {
   document.forms[1]['myrating'].value = currentRating;
 }, false);
 
-var reviewSection = document.getElementById('myReview');
-reviewSection.addEventListener('input', function(event) {
-  updateCharacterCount(event);
-});
 
-var characterCount = document.getElementById('characterCount');
+var modal = document.getElementById("myModal");
+document.getElementById('addToListBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  modal.style.display = "block";
+}, false);
 
 function submitRating() {
   var rating = document.forms[1]['myrating'].value;
@@ -48,6 +53,7 @@ function submitRating() {
   }
 }
 
+var characterCount = document.getElementById('characterCount');
 function updateCharacterCount(event) {
   var currentValue = event.target.value;
   var currentLength = currentValue.length;

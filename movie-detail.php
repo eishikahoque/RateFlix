@@ -35,7 +35,7 @@ $row = $stmt->fetch();
     <section class="align-middle-fixed">
       <div class="first-line">
         <h1><? echo($row["name"]); ?></h1>
-        <button class="btn">+ Lists</button>
+        <button class="btn" id="addToListbtn">+ Lists</button>
         <!-- <button class="btn">Share</button> -->
       </div>
         <div class="second-line">

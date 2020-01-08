@@ -9,6 +9,13 @@ document.getElementById('submitReview').addEventListener('click', function(event
   submitReview();
 }, false);
 
+var modal = document.getElementById("myModal");
+
+document.getElementById('addToListbtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  modal.style.display = "block";
+}, false);
+
 document.addEventListener("DOMContentLoaded", function() {
   var currentReview = reviewSection.value;
   if (currentReview.length > 300) {
