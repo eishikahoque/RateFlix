@@ -28,6 +28,7 @@ $row = $stmt->fetch();
   <title><?php echo($row["name"]);?></title>
 </head>
 <body>
+<?php if (isset($_SESSION['userID'])){ ?>
   <?php include("includes/header.php") ?>	
   <main class="main-container">
     <section>
@@ -35,7 +36,10 @@ $row = $stmt->fetch();
     </section>
     <section class="align-middle-fixed">
       <div class="first-line">
-        <h1><? echo($row["name"]); ?></h1>
+        <h1><?php echo($row["name"]); ?></h1>
+
+        
+        
         <button class="btn" id="addToListBtn">+ Lists</button>
         <!-- <button class="btn">Share</button> -->
       </div>
@@ -91,7 +95,7 @@ $row = $stmt->fetch();
           
         </div>
     </section>
-    <section>
+    <section class="mobile-section">
       <h3>Your Rating</h3>
 
       <?php			
@@ -140,34 +144,35 @@ $row = $stmt->fetch();
     </section>
 
     <div class="modal" id="myModal">
+      <span class="close" id="modalCloseBtn">&times;</span>
+      
       <div class="modal-content">
-        <i class="fas fa-times"></i>
-        <p>All of my Lists</p>
+        <h2>Add to my Lists</h2>
         <?php 
         $stmt = $pdo->prepare("SELECT * FROM `lists` WHERE `userID` = '$userID'; ");
         $stmt->execute();
         ?>
-        
-          <ul>
-          <?php while($row = $stmt->fetch()){?>
-            <li><?php echo($row["listName"]); ?></li> 
-            // do javascript so that if clicked on add userid and list name etc to database
-            <?php };?>
-          </ul>
-          <form action="lists-process-create.php" method="POST" enctype="multipart/form-data">
-		        <div class="form">
-              <label>Create New List</label>
-              <input class="form-input" type="text" name="listName" id="listName" required/>
-            </div>
+          <div class="existingListBtn-row">
+            <ul>
+              <?php while($row = $stmt->fetch()){?>
+              <button class="existingListBtn" id="<?php echo($row["listID"]); ?>"><?php echo($row["listName"]); ?></button> 
+              <?php };?>
+            </ul>
+          </div>
+	        <div class="form-create">
+            <!-- <label>Create New List</label> -->
+            <input class="form-input" type="text" name="listName" id="listName" required/>
+          
             <div class="createBtn-row">
-              <button id="createList" class="createBtn">Create List</button>
-              // create and display and add automatically
+              <button id="createListBtn" class="create-button">Create List</button>
             </div>
-	        </form>
+          </div>
         
       </div>
     </div>
   </main>
   <script type="text/javascript" src="/RateFlix/JS/details-page.js"></script>
   <?php include("includes/footer.php"); ?> 
+  <?php } else { header("Location: landingpage.php");} ?>
+
 </body>

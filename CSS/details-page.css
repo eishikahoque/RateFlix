@@ -87,7 +87,7 @@ h3{
 
 #myReview{
 	background-color: #222222;
-  color: #fff;
+  	color: #fff;
 	font-size: 12px;
 	font-family: 'Quicksand', sans-serif;
 	font-weight: 300;
@@ -183,16 +183,111 @@ h3{
   height: 400px;
   max-height: 100%;
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: #222222;
 }
 
 /* Modal Content/Box */
 .modal-content {
   background-color: #222222;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
+  padding: 16px;
   color: #fff;
   border: 1px solid #222222;
-  width: 80%; /* Could be more or less, depending on screen size */
+
+}
+
+.modal-content h2{
+	margin: 0 12px;
+}
+
+.close {
+  color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus{
+  color: #0A7D91;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-create{
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 24px;
+}
+
+.form-input {
+	background-color: #222222;
+	color: #fff; 
+	font-size: 1rem;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 300;
+	width: 100%;
+	padding: 12px;
+}
+.existingListBtn{
+	font-size: 1rem;
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 300;
+	border: none;
+	padding: 8px 36px;
+	background-color: #0A7D91;
+	color: #fff;
+	border-radius: 5px;
+	margin: 10px;
+}
+
+.existingListBtn-row{
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+.existingListBtn-row ul{
+	padding: 0;
+}
+
+.createBtn-row{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-button{
+  font-size: 1rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+  border: none;
+  padding: 8px 36px;
+  background-color: #0A7D91 ;
+  color: #fff;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.create-button:hover {
+  background: #036272;
+}
+
+@media only screen and (max-width: 992px){
+	.main-container{
+		flex-direction: column;
+		margin: 14px;
+	}
+	.mobile-section{
+		display: flex;
+    	flex-direction: column;
+	}
+	.main-image{
+		width: 200px;
+    	max-height: 300px;
+	}
+	.review-card{
+		font-size: 14px;
+	}
 }

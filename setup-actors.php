@@ -1,4 +1,6 @@
-<?php ?>
+<?php session_start();
+$userID = $_SESSION["userID"];
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -9,7 +11,8 @@
 	</head>
 
 	<body>
-		<span class="logo" href="/RateFlix/home.php">RateFlix</span>
+		<!-- <span class="logo" href="/RateFlix/home.php">RateFlix</span> -->
+		<?php if (isset($_SESSION['userID'])){ ?>
 
 		<h1>Kick start your profile</h1>
 
@@ -58,6 +61,7 @@
 		</div>
 
 		<script type="text/javascript" src="JS/setup.js"></script>
+	<?php } else { header("Location: landingpage.php");} ?>
 
 	</body>
 

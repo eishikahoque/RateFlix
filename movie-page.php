@@ -1,7 +1,8 @@
 <?php session_start();
-$userID = 1;
-// $_SESSION["userID"];
-
+$userID = $_SESSION["userID"];
+if (isset($_SESSION['userID'])){ 
+	
+			
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,12 +19,13 @@ $userID = 1;
 	<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
 	<title>MOVIES</title>
-</head>
-<?php
+	<?php
 
-include("includes/header.php"); 
-include("includes/db-config.php"); 
-?>
+	include("includes/header.php"); 
+	include("includes/db-config.php"); 
+	?>
+</head>
+
 
 	<body>
 		<section>
@@ -43,16 +45,15 @@ include("includes/db-config.php");
 
 					<div class="tile">
 						<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
-						<!-- <div class="tileDetails"> -->
-							<?php // echo($row["name"]); ?>
-						<!-- </div> -->
+					
 					</div>
 
 				<?php } ?>
 			</div>
 		</section>
 		
-		
+	<?php ("includes/footer.php"); ?>
+	<?php } else { header("Location: landingpage.php");} ?>
 
 	</body>
 

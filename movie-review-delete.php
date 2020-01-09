@@ -17,20 +17,20 @@ $userID = $_SESSION["userID"];
 	<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
 	<title>Delete Reviews</title>
-</head>
-<?php
 
-include("includes/header.php"); 
-include("includes/db-config.php"); 
-?>
+	<?php include("includes/header.php"); 
+	include("includes/db-config.php"); ?>
+</head>
 	<body>
-		<?php if (isset($_SESSION['userID'])){ ?>
+		<?php if (isset($_SESSION['userID'])){ 
+			
+			?>
 
 			<section class="review-delete">
 				<h2>Are you sure you want to delete your TV show review?</h2>
 				<?php 
 				$reviewID = $_GET["reviewID"];
-				$stmt = $pdo->prepare("SELECT * FROM `tvshows-review` WHERE `reviewID` = '$reviewID';");
+				$stmt = $pdo->prepare("SELECT * FROM `movies-review` WHERE `reviewID` = '$reviewID';");
 				$stmt->execute();?>
 				<div class="account-reviews">
 					<?php $row = $stmt->fetch();
@@ -40,7 +40,7 @@ include("includes/db-config.php");
 									<?php echo($row["review"]); ?>
 								</p>
 							
-							<form action="show-review-process-delete.php" method="POST">
+							<form action="movie-review-process-delete.php" method="POST">
 									<input type="hidden" name="reviewID" value="<?php echo($row["reviewID"]); ?>" />
 									<div class="delete-button-row">
 										<button class="deleteBtn">Confirm Delete</button>
@@ -52,7 +52,7 @@ include("includes/db-config.php");
 			</section>
 
 		<?php include("includes/footer.php"); ?> 
-		<?php } else { header("Location: landingpage.php");} ?>
+	<?php } else { header("Location: landingpage.php");} ?>
 
 	</body>
 

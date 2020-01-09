@@ -1,4 +1,6 @@
 <?php
+session_start();
+$userID = $_SESSION["userID"];
 include("includes/db-config.php");
 
 $rating = $_POST['rating'];

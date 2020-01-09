@@ -33,10 +33,8 @@ if (isset($_SESSION['userID'])){
 
 
 <?php include("includes/footer.php"); ?>
+<?php } else { header("Location: landingpage.php");} ?>
+
 </body>
 </html>
 
-<?php
-} else {
-	header("Location: landingpage.php");
-} ?>

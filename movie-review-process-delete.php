@@ -5,7 +5,7 @@ $userID = $_SESSION["userID"];
 
 	include("includes/db-config.php");
 
-	$stmt = $pdo->prepare("DELETE FROM `tvshows-review` WHERE `reviewID` = '$reviewID'");
+	$stmt = $pdo->prepare("DELETE FROM `movies-review` WHERE `reviewID` = '$reviewID'");
 
 	$stmt->execute();
 

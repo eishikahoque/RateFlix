@@ -32,6 +32,67 @@ document.getElementById('addToListBtn').addEventListener('click', function(event
   modal.style.display = "block";
 }, false);
 
+document.getElementById('modalCloseBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  modal.style.display = "none";
+}, false);
+
+var existingListBtns = document.querySelectorAll('.existingListBtn');
+for (var i = 0; i < existingListBtns.length; i++) {
+  existingListBtns[i].addEventListener('click', function(event) {
+    event.preventDefault();
+    addToExistingList(event);
+  }, false);
+}
+
+function addToExistingList(event) {
+  var listID = event.target.id;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'lists-process-create.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.send(`listID=${listID}&tvshowID=${document.forms[1]['tvshowID'].value}`);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      console.log(xhr.responseText);
+      var responseJSON = JSON.parse(xhr.responseText);
+      if (responseJSON["success"] === "true") {
+          window.location.reload();
+      }
+    }
+  };
+}
+
+document.getElementById('createListBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  addToNewList();
+}, false);
+
+function addToNewList() {
+  var listName = document.getElementById('listName').value;
+  if (listName) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'lists-process-create.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.send(`listName=${listName}&tvshowID=${document.forms[1]['tvshowID'].value}`);
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        console.log(xhr.responseText);
+        var responseJSON = JSON.parse(xhr.responseText);
+        if (responseJSON["success"] === "true") {
+            window.location.reload();
+        }
+      }
+    };
+  }
+}
+
+//submitting rating
+
 function submitRating() {
   var rating = document.forms[1]['myrating'].value;
   if (rating) {
@@ -53,6 +114,8 @@ function submitRating() {
   }
 }
 
+//Character count
+
 var characterCount = document.getElementById('characterCount');
 function updateCharacterCount(event) {
   var currentValue = event.target.value;
@@ -64,6 +127,8 @@ function updateCharacterCount(event) {
   }
   characterCount.innerText = currentLength;
 }
+
+//submitting review
 
 function submitReview() {
   var review = reviewSection.value;

@@ -6,8 +6,8 @@
 
   <head>
 
-    <title>Sign Up to RateFlix</title>
-    <link rel="stylesheet" type="text/css" href="CSS/signup.css" />
+    <title>Sign Up for RateFlix</title>
+    <link rel="stylesheet" type="text/css" href="/RateFlix/CSS/signup.css" />
 
   </head>
 
@@ -52,7 +52,7 @@
 
   <?php include("includes/footer.php"); ?>
   
-  <script type="text/javascript" src="JS/signup-form.js"></script>
+  <script type="text/javascript" src="/RateFlix/JS/signup-form.js"></script>
 
   </body>
 

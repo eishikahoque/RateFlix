@@ -1,5 +1,5 @@
 <?php session_start();
-
+$userID = $_SESSION["userID"];
 
 
 ?>
@@ -26,7 +26,7 @@ include("includes/db-config.php");
 ?>
 	<body>
 		<?php if (isset($_SESSION['userID'])){ 
-			$userID = $_SESSION["userID"];
+			
 			$stmt = $pdo->prepare("SELECT * FROM `user` WHERE `userID` = '$userID';");
 
 			$stmt->execute();
@@ -72,10 +72,12 @@ include("includes/db-config.php");
 								<div class="rating-alignment"><p>
 									<span class="fa fa-star star starSelected"></span><?php echo($row["myRating"]); ?>
 								</p></div>
-							
 								<div class="editReview"> 
 									<li class="editReviewBtn">
 										<a href="/RateFlix/show-detail.php?tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+										<a href="show-rate-delete.php?ratingID=<?php echo($row["ratingID"]);?>&tvshowID=<?php echo($row['tvshowID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-trash"></i></a>
 									</li>
 								</div>
 							</div>
@@ -140,10 +142,13 @@ include("includes/db-config.php");
 								<div class="rating-alignment"><p>
 									<span class="fa fa-star star starSelected"></span><?php echo($row["myRating"]); ?>
 								</p></div>
-							
+								
 								<div class="editReview"> 
 									<li class="editReviewBtn">
 										<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
+									</li>
+									<li class="deleteReviewBtn">
+											<a href="movie-rate-delete.php?ratingID=<?php echo($row["ratingID"]);?>&movieID=<?php echo($row["movieID"]);?>&userID=<?php echo($userID);?>"><i class="fas fa-trash"></i></a>
 									</li>
 								</div>
 							</div>
@@ -178,7 +183,7 @@ include("includes/db-config.php");
 										<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><i class="fas fa-edit"></i></a>
 									</li>
 									<li class="deleteReviewBtn">
-										<a href="movie-review-delete.php?movieID=<?php echo($row["movieID"]); ?>"><i class="fas fa-trash"></i></a>
+										<a href="movie-review-delete.php?reviewID=<?php echo($row["reviewID"]);?>&movieID=<?php echo($row["movieID"]); ?>&userID=<?php echo($userID);?>"><i class="fas fa-trash"></i></a>
 									</li>
 								</div>
 							</div>
@@ -192,7 +197,7 @@ include("includes/db-config.php");
 
 
 	<?php include("includes/footer.php"); ?> 
-<?php } else{}?>
+	<?php } else { header("Location: landingpage.php");} ?>
 	</body>
 
 </html>

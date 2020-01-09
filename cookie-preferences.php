@@ -32,20 +32,8 @@ $userID = $_SESSION["userID"];
 			Alternatively, privacy settings in most browsers will allow you to prevent your browser from accepting new cookies, have it notify you when you receive a new cookie, or disable cookies altogether. If your browser is set to not accept any cookies, you will not receive Interest-Based Advertising, but your use of the Netflix service may be impaired or unavailable. In addition, if you use our cookie tool to opt-out of certain cookies, your opt-out preferences will be remembered by placing a cookie on your device. It is therefore important that your browser is configured to accept cookies for your preferences to take effect. If you delete or clear your cookies, or if you change which web browser you are using, you will need to set your cookie preferences again.
 		</p>
 	</main>
-	<?php } else { ?>
-	<main class="cookie-container">
-		<h1>Cookie Preferences</h1>
-		<p>
-			RateFlix uses cookies for personalization, to customize it's online advertisements, and for other purposes. By interacting with this site, you agree to our use of cookies.
-		</p>
-		<p>
-			If you opt out of advertising cookies, you may still see Netflix ads on other sites, but those ads will not be customized by us or our service providers and we will continue to customize your experience on our website via our use of cookies you have not refused.
-		</p>
-		<p>
-			Alternatively, privacy settings in most browsers will allow you to prevent your browser from accepting new cookies, have it notify you when you receive a new cookie, or disable cookies altogether. If your browser is set to not accept any cookies, you will not receive Interest-Based Advertising, but your use of the Netflix service may be impaired or unavailable. In addition, if you use our cookie tool to opt-out of certain cookies, your opt-out preferences will be remembered by placing a cookie on your device. It is therefore important that your browser is configured to accept cookies for your preferences to take effect. If you delete or clear your cookies, or if you change which web browser you are using, you will need to set your cookie preferences again.
-		</p>
-	</main>
-	<?php }?> 
+	<?php } else { header("Location: landingpage.php");} ?>
 	<?php include("includes/footer.php") ?>
+
 </body>
 </html>

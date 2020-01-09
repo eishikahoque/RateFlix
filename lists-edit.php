@@ -1,119 +1,55 @@
-<?php session_start(); 	
-if (isset($_SESSION['userID'])){
-include("includes/header.php");
+<?php session_start();
+$userID = $_SESSION["userID"];
 
-$productID = $_GET["productID"]; 
-$userID = $_SESSION["userID"]; 
-
+$stmtList = $pdo->prepare("SELECT * FROM `lists` WHERE `userID` = '$userID'");
+$stmtList->execute();
 ?>
+<!DOCTYPE html>
+<html>
+
 <head>
-	<link rel="stylesheet" type="text/css" href="CSS/forms.css">
+	<meta charset="utf-8" />
+	<meta name="description" content="rating movies and tvshows" />
+	<meta name="keywords" content="rate, movies, tvshows, lists, share, netflix" />
+
+	<link rel="stylesheet" type="text/css" href="/RateFlix/CSS/account.css">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:300|Roboto+Condensed:400,700|Yanone+Kaffeesatz:400,700&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/61799bdb29.js" crossorigin="anonymous"></script>
+	<link rel="icon" type="image/png" sizes="32x32" href="/RateFlix/favicomatic/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
+	<title>Edit List</title>
+	<?php
+
+	include("includes/header.php"); 
+	include("includes/db-config.php"); 
+	?>
 </head>
-<h1>Edit Postings</h1>
 
-<?php
+	<body>
+		<?php if (isset($_SESSION['userID'])){ 
+			
+			?>
 
-include("includes/db-config.php"); 
+			<section class="review-delete">
+			
 
-$stmt = $pdo->prepare("SELECT * FROM `product` WHERE `productID` = '$productID' AND `userID` = '$userID'"); 
+				<div class="form">
+					<form action="lists-process-create.php" method="POST" enctype="multipart/form-data">
+						<div class="left-form">
+							<input class="form-input" type="text" name="listName" id="listName" value="<?php echo($row["listName"]); ?>" required/>
+						</div>
+					</form>
 
-$stmt->execute(); 
+					<div class="createBtn-row">
+						<button id="createList" class="createBtn">Edit Name</button>
+					</div>
+				</div>
+			</section>
 
-$row = $stmt->fetch();
+		<?php include("includes/footer.php"); ?> 
+		<?php } else { header("Location: landingpage.php");} ?>
+		
+	</body>
 
-?>
-<div class="form">
-  <form action="process-edit-posting.php" method="POST" enctype="multipart/form-data">
-
-  <input type="hidden" name="productID" value=<?php echo $_GET["productID"]; ?> />
-
-  <div class="left-form">
-	<label for="itemName">Name of Item</label>
-	<input class="form-input" type="text" name="itemName" id="itemName" value="<?php echo($row["itemName"]);?>"required/>
-
-	<label for="included">Included</label>
-	<input class="form-input" type="text" name="included" id="included" value="<?php echo($row["included"]);?>" required/>
-
-	<label for="blurb">Description</label>
-	<textarea class="form-input" id="blurb" name="blurb" type="text" required><?php echo($row["blurb"]);?></textarea>
-
-	<div class="upload-btn">
-      <label>UPLOAD IMAGE</label>
-      <input type="file" name="image" id="uploadImage" required /> <br>
-    </div>
-
-  </div>
-  <div class="right-form">
-  	<div class="row">
-  		<div class="form-element">
-			<label for="price">Price($)</label>
-			<input type="number" name="price" id="price" min="1" step="0.01" value="<?php echo($row["price"]);?>"  required />
-		</div>
-
-		<div class="form-element">
-			<label for="rentDate"> Rental Period </label>
-			<select name="rentDate" id="rentDate" value="<?php echo($row["rentDate"]);?>">
-				<option value="3"> 3 Days </option>
-			</select>
-		</div>
-	</div>
-	<div class="row">
-		<div class="form-element">
-			<label> Brand </label>
-			<select name="brand" id="brand" value="<?php echo($row["brand"]);?>">
-				<option value="blackDecker"> Black + Decker </option>
-				<option value="bosch"> Bosch </option>
-				<option value="dewalt"> Dewalt </option>
-				<option value="mastercraft"> Mastercraft </option>
-				<option value="milwaukee"> Milwaukee </option>
-				<option value="ryobi"> Ryobi </option>
-				<option value="other"> Other </option>
-			</select>
-		</div>
-
-		<div class="form-element">
-			<label for="type"> Type </label>
-			<select name="type" id="toolType" value="<?php echo($row["type"]);?>">
-				<option value="powerTool"> Power Tool </option>
-				<option value="handTool"> Hand Tool </option>
-				<option value="plumbing"> Plumbing </option>
-				<option value="outdoors"> Outdoors </option>
-				<option value="others"> Others </option>
-			</select>
-		</div>
-
-	</div>
-	<div class="row">
-
-		<div class="form-element">
-			<label for="city"> City </label>
-			<select name="location" id="location" value="<?php echo($row["location"]);?>">
-				<option value="mississauga"> Mississauga </option>
-				<option value="northYork"> North York </option>
-				<option value="oakville"> Oakville </option>
-				<option value="scarborough"> Scarborough </option>
-				<option value="toronto"> Toronto </option> 
-			</select>
-		</div>
-
-		<div class="form-element">
-			<label for="transportOption"> Delivery/Pick Up </label> 
-			<select name="transportOption" id="transportOption" value="<?php echo($row["transportOption"]);?>">
-				<option value="delivery"> Delivery </option>
-				<option value="pickup"> Pick Up </option>
-				<option value="both"> Both </option>
-			</select>
-		</div>
-
-	</div>
-	</div>
-	</div>
-	<div class="submit-button-row">
-		<input type="submit" value="Edit Posting" id="submitPosting" class="submit-button" />
-	</div>
-</form>
-<?php
-include("includes/footer.php");
-?>
-
-<?php } else { header("Location: landing1.php"); } ?>
+</html>

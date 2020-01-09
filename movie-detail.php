@@ -1,5 +1,5 @@
 <?php session_start();
-
+$userID = $_SESSION["userID"];
 include("includes/db-config.php");
 
 $movieID = $_GET["movieID"];
@@ -27,6 +27,7 @@ $row = $stmt->fetch();
   <title><?php echo($row["name"]);?></title>
 </head>
 <body>
+  <?php if (isset($_SESSION['userID'])){ ?>
   <?php include("includes/header.php") ?>	
   <main class="main-container">
     <section>
@@ -35,7 +36,7 @@ $row = $stmt->fetch();
     <section class="align-middle-fixed">
       <div class="first-line">
         <h1><? echo($row["name"]); ?></h1>
-        <button class="btn" id="addToListbtn">+ Lists</button>
+        <button class="btn" id="addToListBtn">+ Lists</button>
         <!-- <button class="btn">Share</button> -->
       </div>
         <div class="second-line">
@@ -61,7 +62,7 @@ $row = $stmt->fetch();
           <h3>Starring:</h3>
           <p>
           <?php 
-            $stmtActor = $pdo->prepare("SELECT * FROM `actors` INNER JOIN `movies-actor` ON `actors`.`actorID`=`movies-actor`.`actorID` WHERE `movies-actor`.`movieID`='$movieID';");
+            $stmtActor = $pdo->prepare("SELECT * FROM `actors` INNER JOIN `movie-actor` ON `actors`.`actorID`=`movie-actor`.`actorID` WHERE `movie-actor`.`movieID`='$movieID';");
             $stmtActor->execute();
             $castNamesList = "";
             while ($row = $stmtActor->fetch()) {
@@ -88,7 +89,7 @@ $row = $stmt->fetch();
           
         </div>
     </section>
-    <section>
+    <section class="mobile-section">
       <h3>Your Rating</h3>
 
       <?php			
@@ -135,7 +136,39 @@ $row = $stmt->fetch();
         <?php }; ?>
         </div>
     </section>
+
+    <div class="modal" id="myModal">
+      <span class="close" id="modalCloseBtn">&times;</span>
+      
+      <div class="modal-content">
+        <h2>Add to my Lists</h2>
+        <?php 
+        $stmt = $pdo->prepare("SELECT * FROM `lists` WHERE `userID` = '$userID'; ");
+        $stmt->execute();
+        ?>
+          <div class="existingListBtn-row">
+            <ul>
+              <?php while($row = $stmt->fetch()){?>
+              <button class="existingListBtn" id="<?php echo($row["listID"]); ?>"><?php echo($row["listName"]); ?></button> 
+              <?php };?>
+            </ul>
+          </div>
+          <div class="form-create">
+            <!-- <label>Create New List</label> -->
+            
+            <input class="form-input" type="text" name="listName" id="listName" required/>
+          
+            <div class="createBtn-row">
+              <button id="createListBtn" class="create-button">Create List</button>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+
   </main>
   <script type="text/javascript" src="/RateFlix/JS/movie-details-page.js"></script>
   <?php include("includes/footer.php"); ?> 
+<?php } else { header("Location: landingpage.php");} ?>
+
 </body>

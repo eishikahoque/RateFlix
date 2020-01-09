@@ -25,9 +25,7 @@ include("includes/header.php");
 include("includes/db-config.php"); 
 ?>
 	<body>
-		<?php if (isset($_SESSION['userID'])){ 
-			$userID = $_SESSION["userID"];
-			?>
+		<?php if (isset($_SESSION['userID'])){ ?>
 
 			<section class="review-delete">
 				<h2>Are you sure you want to delete your list?</h2>
@@ -40,7 +38,7 @@ include("includes/db-config.php");
 						?>
 							<div>
 								<p class="reviews">
-									<?php echo($row["review"]); ?>
+									<?php echo($row["listName"]); ?>
 								</p>
 							
 							<form action="lists-process-delete.php" method="POST">
@@ -54,17 +52,8 @@ include("includes/db-config.php");
 				</div>
 			</section>
 
-
-
-
-
-
-
-
-
-
 		<?php include("includes/footer.php"); ?> 
-		<?php } else{}?>
+		<?php } else { header("Location: landingpage.php");} ?>
 	</body>
 
 </html>

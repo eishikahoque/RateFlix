@@ -6,6 +6,15 @@ section {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.list-row{
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 24px 0;
 }
 
 .show-all-row{
@@ -20,6 +29,14 @@ section {
 
 .tile:hover {
   transform: scale(1.1);
+}
+
+.list-row:hover .tile{
+  opacity: 0.2;
+}
+
+.list-row .tile:hover{
+  opacity: 1;
 }
 
 .row:hover .tile {
@@ -42,8 +59,69 @@ section {
 	margin: 14px;	
 }
 
-@media only screen and (max-width: 840px) {
+.listName{
+  margin-left: 12px;
+  margin-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+/*.createBtn{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.create-button{
+  font-size: 1rem;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+  border: none;
+  padding: 8px 36px;
+  background-color: #0A7D91 ;
+  color: #fff;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.create-button:hover {
+  background: #036272;
+}
+*/
+.show-all-list-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style-type: none;
+}
+
+.show-all-list-row input{
+  background-color: #222222;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  width: 20%;
+}
+
+.editReviewBtn a{
+  margin-left: 4px;
+  font-size: 1.2rem;
+  color: #0A7D91;
+}
+
+.deleteReviewBtn a{
+  margin-left: 4px;
+  font-size: 1.2rem;
+  color: #0A7D91;
+}
 
 
 
+@media only screen and (max-width: 480px){
+  .tileImg{
+    width: 80px;
+    height: 120px;
+  }
+  .h2{
+    font-size: 18px;
+  }
 }

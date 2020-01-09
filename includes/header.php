@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="description" content="rating movies and tvshows" />
   <meta name="keywords" content="rate, movies, tvshows, lists, share, netflix" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 
   <link rel="stylesheet" type="text/css" href="/RateFlix/includes/CSS/header.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:300|Roboto+Condensed:400,700|Yanone+Kaffeesatz:400,700&display=swap" rel="stylesheet">

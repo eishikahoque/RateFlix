@@ -94,6 +94,10 @@ a {
   margin: 0 4px;
 }
 
+.header-search-form input{
+  color: #fff;
+}
+
 .logo {
   display: flex;
   flex-direction: column;
@@ -194,4 +198,36 @@ ul li ul li {
 
 .dropdown li:hover {
   background-color: #0A7D91;
+}
+
+@media only screen and (max-width: 480px){
+  #nav{
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-bar{
+    align-self: center;
+    flex-direction: column;
+  }
+  .login-header{
+    justify-content: center;
+  }
+  .logo{
+    flex-direction: inherit;
+  }
+  .nav-item a {
+  font-weight: 400;
+  font-size: 0.8rem;
+  }
+  .dropdown{
+    right: 78px;
+    top: 75px;
+  }
+}
+
+@media only screen and (min-width: 380px) and (max-width: 480px){
+  .dropdown{
+    right: 15px;
+    top: 75px;
+  }
 }

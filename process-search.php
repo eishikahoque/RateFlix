@@ -36,23 +36,25 @@ $stmtSearch = $pdo->prepare("
 					`releaseYear` LIKE '%$searchTerm%'
 					OR
 				    `genre` LIKE '%$searchTerm%'  
+				
+				-- 	 UNION
+				-- SELECT
+				-- 	`fname`,
+				-- 	`mname`,
+				-- 	`lname`,
+				-- 	`actorID` AS `id`,
+				-- FROM
+				-- 	`actors`
+				-- WHERE 
+				-- 	`fname` LIKE '%$searchTerm%'
+				-- 	OR
+				-- 	`mname` LIKE '%$searchTerm%'
+				-- 	OR
+				--     `lname` LIKE '%$searchTerm%'
 				");
-				// 	 UNION
-				// -- SELECT
-				// -- 	`fname`,
-				// -- 	`mname`,
-				// -- 	`lname`,
-				// -- 	`actorID` AS `id`,
-				// -- FROM
-				// -- 	`actors`
-				// -- WHERE 
-				// -- 	`firstName` LIKE '%$searchTerm%'
-				// -- 	OR
-				// -- 	`middleName` LIKE '%$searchTerm%'
-				// -- 	OR
-				// --     `lastName` LIKE '%$searchTerm%'
 
 $stmtSearch->execute();
+
 
 ?>
 
@@ -76,9 +78,7 @@ $stmtSearch->execute();
 
 <body>
 	<?php include("includes/header.php"); ?>
-<!-- // $stmtSearch = $pdo->prepare("SELECT * FROM `tvshows` WHERE `name` LIKE '%$searchTerm%' OR `genre` LIKE '%$searchTerm%'");
- // OR 
-	// `type` LIKE '%$searchTerm%' AND `availability` = '1' -->		
+
 		<section>
 			<div>
 				<h1>You searched for <?php echo("$searchTerm"); ?></h1>
@@ -102,9 +102,6 @@ $stmtSearch->execute();
 
 					<div class="tile">
 						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]); ?>"/></a>
-						<!-- <div class="tileDetails"> -->
-							<?php // echo($row["name"]); ?>
-						<!-- </div> -->
 					</div>
 
 				<?php } ?>

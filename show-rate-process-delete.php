@@ -1,11 +1,11 @@
 <?php session_start();
 $userID = $_SESSION["userID"];
 
-	$reviewID = $_POST["reviewID"];
+	$ratingID = $_POST["ratingID"];
 
 	include("includes/db-config.php");
 
-	$stmt = $pdo->prepare("DELETE FROM `tvshows-review` WHERE `reviewID` = '$reviewID'");
+	$stmt = $pdo->prepare("DELETE FROM `tvshows-rating` WHERE `ratingID` = '$ratingID'");
 
 	$stmt->execute();
 

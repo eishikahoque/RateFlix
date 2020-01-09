@@ -60,8 +60,16 @@
     list-style-type: none;
 }
 
-.editReviewBtn: hover{
-	color: #0A7D91;
+.editReviewBtn a{
+  margin-left: 4px;
+  font-size: 1.2rem;
+  color: #0A7D91;
+}
+
+.deleteReviewBtn a{
+  margin-left: 4px;
+  font-size: 1.2rem;
+  color: #0A7D91;
 }
 
 .reviews{
@@ -89,7 +97,7 @@
 .delete-button-row{
 	display: flex;
 	flex-direction: row;
-	align-items: center; 
+	align-items: center !important; 
 }
 
 .deleteBtn{

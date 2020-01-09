@@ -3,7 +3,7 @@ include("includes/db-config.php");
 
 $listID = isset($_POST['listID']) ? $_POST['listID'] : null;
 $listName = isset($_POST['listName']) ? $_POST['listName'] : null;
-$tvshowID = $_POST['tvshowID'];
+$movieID = $_POST['movieID'];
 $userID = $_SESSION["userID"];
 
 
@@ -37,7 +37,7 @@ if ($listID === null) {
 
 $stmt3 = $pdo->prepare("
 		INSERT INTO `tvshows-movies-lists`(`listID`, `tvshowID`, `movieID`)
-		VALUES ('$listID', '$tvshowID', NULL)
+		VALUES ('$listID', NULL, '$movieID')
 	");
 
 $stmt3->execute();

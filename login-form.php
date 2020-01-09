@@ -36,9 +36,9 @@
           <p>Don't have an account? 
           <a href="signup-form.php" class="clickme">Register now</a></p>
       </div>
-      <div class="sub-reminder">
+      <!-- <div class="sub-reminder">
           <p><a href="forgot-password.php" class="clickme">Forgot your password?</a></p>
-      </div>
+      </div> -->
 		</div>
 
 	<?php include("includes/footer.php"); ?>

@@ -1,6 +1,5 @@
 <?php session_start();
-$userID = 1;
-// $_SESSION["userID"];
+$userID = $_SESSION["userID"];
 
 ?>
 <!DOCTYPE html>
@@ -18,13 +17,10 @@ $userID = 1;
 	<link rel="icon" type="image/png" sizes="96x96" href="/RateFlix/favicomatic/favicon-96x96.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/RateFlix/favicomatic/favicon-16x16.png">
 	<title>TV SHOWS</title>
+	<?php include("includes/header.php"); 
+	include("includes/db-config.php"); ?>
 </head>
-<?php
-
-include("includes/header.php"); 
-include("includes/db-config.php"); 
-?>
-
+		<?php if (isset($_SESSION['userID'])){ ?>
 	<body>
 		<section>
 			<h2>Tv Show</h2>
@@ -51,8 +47,9 @@ include("includes/db-config.php");
 				<?php } ?>
 			</div>
 		</section>
-		
-		
+		<?php include("includes/footer.php"); ?>
+		<?php } else { header("Location: landingpage.php");} ?>
+
 
 	</body>
 

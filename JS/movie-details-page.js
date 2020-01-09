@@ -11,10 +11,10 @@ document.getElementById('submitReview').addEventListener('click', function(event
 
 var modal = document.getElementById("myModal");
 
-document.getElementById('addToListbtn').addEventListener('click', function(event) {
-  event.preventDefault();
-  modal.style.display = "block";
-}, false);
+// document.getElementById('addToListbtn').addEventListener('click', function(event) {
+//   event.preventDefault();
+//   modal.style.display = "block";
+// }, false);
 
 document.addEventListener("DOMContentLoaded", function() {
   var currentReview = reviewSection.value;
@@ -32,7 +32,11 @@ reviewSection.addEventListener('input', function(event) {
   updateCharacterCount(event);
 });
 
+//character count
+
 var characterCount = document.getElementById('characterCount');
+
+//submit rating
 
 function submitRating() {
   var rating = document.forms[1]['myrating'].value;
@@ -86,3 +90,73 @@ function submitReview() {
     };
   }
 }
+
+
+
+var modal = document.getElementById("myModal");
+document.getElementById('addToListBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  modal.style.display = "block";
+}, false);
+
+document.getElementById('modalCloseBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  modal.style.display = "none";
+}, false);
+
+var existingListBtns = document.querySelectorAll('.existingListBtn');
+for (var i = 0; i < existingListBtns.length; i++) {
+  existingListBtns[i].addEventListener('click', function(event) {
+    event.preventDefault();
+    addToExistingList(event);
+  }, false);
+}
+
+function addToExistingList(event) {
+  var listID = event.target.id;
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'movie-lists-process-create.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  xhr.send(`listID=${listID}&movieID=${document.forms[1]['movieID'].value}`);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      console.log(xhr.responseText);
+      var responseJSON = JSON.parse(xhr.responseText);
+      if (responseJSON["success"] === "true") {
+          window.location.reload();
+      }
+    }
+  };
+}
+
+document.getElementById('createListBtn').addEventListener('click', function(event) {
+  event.preventDefault();
+  addToNewList();
+}, false);
+
+function addToNewList() {
+  var listName = document.getElementById('listName').value;
+  if (listName) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'movie-lists-process-create.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    xhr.send(`listName=${listName}&movieID=${document.forms[1]['movieID'].value}`);
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        console.log(xhr.responseText);
+        var responseJSON = JSON.parse(xhr.responseText);
+        if (responseJSON["success"] === "true") {
+            window.location.reload();
+        }
+      }
+    };
+  }
+}
+
+
+

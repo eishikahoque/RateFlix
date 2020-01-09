@@ -26,7 +26,7 @@ include("includes/db-config.php");
 <?php if (isset($_SESSION['userID'])){ ?>
 	<body>
 		<section>
-			<h2>Dramas</h2>
+			<h2>Action</h2>
 			<?php 
 			$stmt = $pdo->prepare("
 				SELECT
@@ -36,7 +36,7 @@ include("includes/db-config.php");
 				FROM
 				    `tvshows`
 				WHERE
-				    `genre` = 'drama'
+				    `genre` = 'crime drama'
 				UNION
 				SELECT
 				    `images`,
@@ -45,7 +45,7 @@ include("includes/db-config.php");
 				FROM
 				    `movies`
 				WHERE
-				    `genre` = 'drama'
+				    `genre` = 'action adventure'
 				ORDER BY RAND() LIMIT 20
 				");
 
@@ -78,7 +78,7 @@ include("includes/db-config.php");
 		</section>
 
 		<section>
-			<h2>Netflix Tv Shows Original</h2>
+			<h2>Netflix Original</h2>
 			<?php 
 			$stmt = $pdo->prepare("
 				SELECT
@@ -129,6 +129,116 @@ include("includes/db-config.php");
 		</section>
 
 		<section>
+			<h2>Recently Released</h2>
+
+			<?php 
+			$stmt = $pdo->prepare("
+				SELECT
+				    `images`,
+				    `tvshowID` AS `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+				    `releaseYear` = '2018'
+				OR
+					`releaseYear` = '2019'
+				UNION
+				SELECT
+				    `images`,
+				    `movieID` AS `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `releaseYear` = '2018'
+				OR
+					`releaseYear` = '2019'
+				 ORDER BY RAND() LIMIT 20");
+
+			$stmt->execute(); ?>
+
+			<div class="row">
+    			<?php
+
+				while ($row = $stmt->fetch()) {
+
+					$link = "";
+
+				if ($row['source'] === 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+
+				} else if($row['source'] === 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				}
+				?>
+
+					<div class="tile">
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
+
+				<?php } ?>
+			</div>
+		</section>
+
+		<section>
+			<h2>Dramas</h2>
+			<?php 
+			$stmt = $pdo->prepare("
+				SELECT
+				    `images`,
+				    `tvshowID` as `id`,
+				    'tv' AS `source`
+				FROM
+				    `tvshows`
+				WHERE
+				    `genre` = 'drama'
+				OR
+					`genre` = 'crime drama'
+				UNION
+				SELECT
+				    `images`,
+				    `movieID` as `id`,
+				    'movie' AS `source`
+				FROM
+				    `movies`
+				WHERE
+				    `genre` = 'drama'
+				ORDER BY RAND() LIMIT 20
+				");
+
+			$stmt->execute(); ?>
+
+			<div class="row">
+    			<?php
+
+				while ($row = $stmt->fetch()) {
+
+					$link = "";
+
+				if($row['source'] === 'movie') {
+					$link = "/RateFlix/movie-detail.php?movieID=".$row['id']."&userID=".$userID;
+				} else if ($row['source'] === 'tv') {
+					$link = "/RateFlix/show-detail.php?tvshowID=".$row['id']."&userID=".$userID;
+
+				}
+				?>
+
+					<div class="tile">
+						<a href="<?php echo($link); ?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
+						<!-- <div class="tileDetails"> -->
+							<?php // echo($row["name"]); ?>
+						<!-- </div> -->
+					</div>
+
+				<?php } ?>
+			</div>
+		</section>
+
+		<section>
 			<h2>Comedies</h2>
 			<?php 
 			$stmt = $pdo->prepare("
@@ -149,6 +259,8 @@ include("includes/db-config.php");
 				    `movies`
 				WHERE
 				    `genre` = 'comedy'
+				OR
+					`genre` = 'romantic comedy'
 				 ORDER BY RAND() LIMIT 20
 				");
 
@@ -179,33 +291,9 @@ include("includes/db-config.php");
 				<?php } ?>
 			</div>
 		</section>
-		<section>
-			<h2>Recently Released</h2>
-
-			<?php 
-			$stmt = $pdo->prepare("SELECT * FROM `movies` WHERE `releaseYear` = '2019' ORDER BY RAND() LIMIT 20");
-
-			$stmt->execute(); ?>
-
-			<div class="row">
-    			<?php
-
-				while ($row = $stmt->fetch()){ ?>
-
-					<div class="tile">
-						<a href="/RateFlix/movie-detail.php?movieID=<?php echo($row['movieID']);?>&userID=<?php echo($userID);?>"><img class="tileImg" src="<?php echo($row["images"]);?>"/></a>
-						<!-- <div class="tileDetails"> -->
-							<?php // echo($row["name"]); ?>
-						<!-- </div> -->
-					</div>
-
-				<?php } ?>
-			</div>
-		</section>
 
 		<?php include("includes/footer.php"); ?> 
-		<?php } else { 
-			header("Location: landingpage.php");}			?>
+		<?php } else { header("Location: landingpage.php");} ?>
 
 	</body>
 
