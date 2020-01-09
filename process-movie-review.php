@@ -30,11 +30,7 @@ if ($row1['review_count'] > 0) {
 }
 
 $stmt2->execute();
-$row2 = $stmt2->fetch();
 
-if ($row1['review_count'] > 0 || $row2) {
-  echo('{"success": "true"}');
-} else {
-  echo('{"success": "false"}');
-}
+echo('{"success": "true"}');
+
 ?>

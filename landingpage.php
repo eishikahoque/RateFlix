@@ -77,8 +77,6 @@
 			<button class="landing-button-subtle"><a href="signup-form.php">SIGN UP NOW</button></a>
 		</div>
 		</div>
-
-		<?php include("includes/footer.php") ?>
 	</body>
 
 </html>

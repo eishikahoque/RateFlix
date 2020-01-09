@@ -1,4 +1,14 @@
-<?php  ?>
+<?php 
+
+$isLoggedIn = isset($_SESSION['userID']);
+
+if ($isLoggedIn) {
+  $link = "/RateFlix/home.php";
+} else {
+  $link = "/RateFlix/landingpage.php";
+}
+
+?>
 
 <head>
 
@@ -18,8 +28,8 @@
 
 <nav id="nav">
   <ul class="nav-bar">
-    <a href="/RateFlix/home.php"><span class="logo">RateFlix</span></a>
-    <?php if (isset($_SESSION['userID'])){ ?>
+    <a href="<?php echo($link); ?>"><span class="logo">RateFlix</span></a>
+    <?php if ($isLoggedIn){ ?>
       <div class="login-header">
         <div class="header-search-form">
           <form id="searchForm" action="/RateFlix/process-search.php" method="POST">

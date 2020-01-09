@@ -175,6 +175,7 @@ li:hover {
 ul li ul {
   visibility: hidden;
   opacity: 0;
+  z-index: 100;
   position: absolute;
   transition: all 0.5s ease;
   margin-right: 8px;

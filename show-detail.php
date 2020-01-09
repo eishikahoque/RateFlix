@@ -38,8 +38,6 @@ $row = $stmt->fetch();
       <div class="first-line">
         <h1><?php echo($row["name"]); ?></h1>
 
-        
-        
         <button class="btn" id="addToListBtn">+ Lists</button>
         <!-- <button class="btn">Share</button> -->
       </div>
